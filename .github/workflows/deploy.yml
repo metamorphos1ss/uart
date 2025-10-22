@@ -53,4 +53,4 @@ jobs:
       - name: Health check
         run: |
           ssh -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
-            "curl -fsS http://127.0.0.1:8080/ || (journalctl -u myapp --no-pager -n 50; exit 1)"
+            "curl -fsS http://127.0.0.1:8080/healthz | grep -q '\"ok\": *true' || (journalctl -u uart --no-pager -n 50; exit 1)"
