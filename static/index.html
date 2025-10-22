@@ -2,491 +2,528 @@
 <html lang="ru">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UArt — партнёры в создании событий</title>
-  <meta name="description"
-    content="UArt — event-команда: проектируем концепции, подбираем персонал и управляем мероприятиями под ключ." />
-  <link rel="stylesheet" href="/static/css/style.css" />
-  <link rel="icon" type="image/svg+xml" href="/static/img/UArt.svg" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UArt — партнёры в создании событий</title>
+    <meta name="description"
+        content="UArt — event-команда: проектируем концепции, подбираем персонал и управляем мероприятиями под ключ." />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="icon" type="image/svg+xml" href="/static/img/UArt.svg" />
 </head>
 
 <body>
-  <header class="site-header" id="top">
-    <div class="container header__inner">
-      <a class="logo" href="#hero" aria-label="UArt">UArt</a>
-      <button class="nav-toggle" type="button" id="navToggle" aria-controls="siteNav" aria-expanded="false">
-        <span class="sr-only">Open menu</span>
-        <span class="nav-toggle__bar"></span>
-        <span class="nav-toggle__bar"></span>
-        <span class="nav-toggle__bar"></span>
-      </button>
-      <nav class="site-nav" id="siteNav" aria-label="Main navigation">
-        <button class="nav-close" type="button" id="navClose">
-          <span class="sr-only">Close menu</span>
-        </button>
-        <ul class="site-nav__list">
-          <li class="site-nav__item"><a href="#services">Услуги</a></li>
-          <li class="site-nav__item"><a href="#eventTypes">Форматы событий</a></li>
-          <li class="site-nav__item"><a href="#cases">Кейсы</a></li>
-          <li class="site-nav__item"><a href="#advantages">Преимущества</a></li>
-          <li class="site-nav__item"><a href="#team">Команда</a></li>
-          <li class="site-nav__item"><a href="#contacts">Контакты</a></li>
-        </ul>
-      </nav>
-      <div class="header__cta">
-        <a class="btn btn--accent" href="#heroForm">Оставить заявку</a>
-      </div>
+    <header class="site-header" id="top">
+        <div class="container header__inner">
+            <a class="logo" href="#hero" aria-label="UArt">UArt</a>
+            <button class="nav-toggle" type="button" id="navToggle" aria-controls="siteNav" aria-expanded="false">
+                <span class="sr-only">Open menu</span>
+                <span class="nav-toggle__bar"></span>
+                <span class="nav-toggle__bar"></span>
+                <span class="nav-toggle__bar"></span>
+            </button>
+            <nav class="site-nav" id="siteNav" aria-label="Main navigation">
+                <button class="nav-close" type="button" id="navClose">
+                    <span class="sr-only">Close menu</span>
+                </button>
+                <ul class="site-nav__list">
+                    <li class="site-nav__item"><a href="#services">Услуги</a></li>
+                    <li class="site-nav__item"><a href="#eventTypes">Форматы событий</a></li>
+                    <li class="site-nav__item"><a href="#cases">Кейсы</a></li>
+                    <li class="site-nav__item"><a href="#advantages">Преимущества</a></li>
+                    <li class="site-nav__item"><a href="#team">Команда</a></li>
+                    <li class="site-nav__item"><a href="#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="header__cta">
+                <a class="btn btn--accent" href="#heroForm">Оставить заявку</a>
+            </div>
+        </div>
+    </header>
+    <div class="nav-backdrop" id="navBackdrop" hidden></div>
+
+    <main class="site-main" id="hero">
+        <section class="hero">
+            <div class="container hero__layout">
+                <div class="hero__content">
+                    <p class="eyebrow">Event Project Studio</p>
+                    <h1>UArt — надёжные партнёры в организации ярких и безупречных событий</h1>
+                    <p class="lead">Прорабатываем концепцию, подбираем команду, управляем площадкой и подрядчиками,
+                        чтобы вы
+                        получили безупречный результат и довольную аудиторию.</p>
+                </div>
+                <aside class="hero__form">
+                    <form class="form card" id="heroForm" novalidate>
+                        <fieldset class="form__group">
+                            <legend class="sr-only">Заявка на встречу</legend>
+                            <label class="field">
+                                <span class="field__label">Имя</span>
+                                <input class="input" name="name" type="text" placeholder="Ваше имя" autocomplete="name"
+                                    required />
+                            </label>
+                            <label class="field">
+                                <span class="field__label">Телефон</span>
+                                <input class="input" name="phone" type="tel" placeholder="+7 (___) ___-__-__"
+                                    autocomplete="tel" inputmode="tel" required />
+                            </label>
+                            <label class="field">
+                                <span class="field__label">Комментарий</span>
+                                <textarea class="textarea" name="comment" placeholder="Опишите задачу или вопросы"
+                                    rows="3"></textarea>
+                            </label>
+                        </fieldset>
+                        <div class="form__actions">
+                            <button class="btn btn--accent" type="submit">Отправить заявку</button>
+                            <button class="btn btn--ghost" type="button" id="contactCall">Позвонить</button>
+                        </div>
+                        <p class="form__note small">Нажимая на кнопку, вы даете согласие на обработку персональных
+                            данных и
+                            соглашаетесь с политикой конфиденциальности согласно Федеральному закону № 152-ФЗ от
+                            27.07.2006 «О
+                            персональных данных».</p>
+                    </form>
+                </aside>
+            </div>
+        </section>
+
+        <section class="section" id="services" aria-labelledby="servicesTitle">
+            <div class="container">
+                <header class="section__header">
+                    <h2 id="servicesTitle">Наши услуги</h2>
+                    <p class="section__lead">Организация мероприятий: концепция, площадка, логистика. Аренда персонала:
+                        хостес,
+                        официанты, бармены, монтажники, промоутеры, координаторы.</p>
+                </header>
+                <div class="card-grid">
+                    <article class="card card--service">
+                        <h3>Организация мероприятий</h3>
+                        <p class="small">Берем на себя разработку концепции, аренду площадки, логистику.</p>
+                    </article>
+                    <article class="card card--service">
+                        <h3>Разработка сценария</h3>
+                        <p class="small">Создание уникальной концепции и сценарного плана под формат события.</p>
+                    </article>
+                    <article class="card card--service">
+                        <h3>Координация и продакшн</h3>
+                        <p class="small">Полное сопровождение — от логистики и подрядчиков до тайминга и гостей.</p>
+                    </article>
+                    <article class="card card--service">
+                        <h3>Хостес</h3>
+                        <p class="small">Профессиональные хостес для деловых, культурных и промо-активностей.</p>
+                    </article>
+                    <article class="card card--service">
+                        <h3>Официанты</h3>
+                        <p class="small">Подбор и брифинг команды официантов под стандарты вашего события.</p>
+                    </article>
+                    <article class="card card--service">
+                        <h3>Бармены</h3>
+                        <p class="small">Бармены с авторскими сетами и знанием сервисных регламентов.</p>
+                    </article>
+                    <article class="card card--service">
+                        <h3>Монтажники</h3>
+                        <p class="small">Своевременный монтаж и демонтаж сцен, конструкций и технического оборудования.
+                        </p>
+                    </article>
+                    <article class="card card--service">
+                        <h3>Промоутеры</h3>
+                        <p class="small">Команды промо-персонала для городских и брендовых активаций.</p>
+                    </article>
+                    <article class="card card--service">
+                        <h3>Координаторы</h3>
+                        <p class="small">Координаторы берут на себя потоки гостей, подрядчиков и логистику.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--alt" id="eventTypes" aria-labelledby="eventTypesTitle">
+            <div class="container">
+                <header class="section__header">
+                    <h2 id="eventTypesTitle">Форматы событий</h2>
+                    <p class="section__lead">Работаем с корпоративными, частными и публичными проектами. Для каждой
+                        задачи — своя
+                        команда и сценарий.</p>
+                </header>
+                <div class="feature-grid">
+                    <article class="card card--format">
+                        <button class="card__media" type="button" data-image="/static/img/cases/korporat.jpg"
+                            data-alt="Корпоративное событие UArt"
+                            data-caption="Корпоративные события: конференции, тренинги, тимбилдинги и партнёрские мероприятия.">
+                            <img src="/static/img/cases/korporat.jpg" alt="Корпоративное событие UArt" loading="lazy" />
+                            <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
+                        </button>
+                        <div class="card__body">
+                            <h3>Корпоративные события</h3>
+                            <p class="small">Конференции, стратегические сессии, тимбилдинги и партнёрские встречи под
+                                цели бизнеса.
+                            </p>
+                        </div>
+                    </article>
+                    <article class="card card--format">
+                        <button class="card__media" type="button" data-image="/static/img/cases/private.PNG"
+                            data-alt="Частное мероприятие UArt"
+                            data-caption="Частные мероприятия: свадьбы, юбилеи, выпускные и семейные торжества.">
+                            <img src="/static/img/cases/private.PNG" alt="Частное мероприятие UArt" loading="lazy" />
+                            <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
+                        </button>
+                        <div class="card__body">
+                            <h3>Частные мероприятия</h3>
+                            <p class="small">Свадьбы, юбилеи, выпускные и семейные праздники с индивидуальным сценарием.
+                            </p>
+                        </div>
+                    </article>
+                    <article class="card card--format">
+                        <button class="card__media" type="button" data-image="/static/img/cases/public.jpg"
+                            data-alt="Публичный проект UArt"
+                            data-caption="Публичные проекты: фестивали, концерты, ярмарки и городские активности.">
+                            <img src="/static/img/cases/public.jpg" alt="Публичный проект UArt" loading="lazy" />
+                            <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
+                        </button>
+                        <div class="card__body">
+                            <h3>Публичные проекты</h3>
+                            <p class="small">Фестивали, концерты, ярмарки и городские активности, которые вовлекают
+                                широкую аудиторию.
+                            </p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="cases" aria-labelledby="casesTitle">
+            <div class="container">
+                <header class="section__header">
+                    <h2 id="casesTitle">Примеры успешных кейсов</h2>
+                    <p class="section__lead">Сопровождаем проекты разных масштабов — от спортивных клубов до крупных
+                        фестивалей.
+                        Делимся фактами, потому что уверены в результате.</p>
+                </header>
+                <div class="card-grid">
+                    <article class="card card--case">
+                        <button class="card__media" type="button" data-image="/static/img/cases/dinamo.jpeg"
+                            data-alt="Команда UArt на домашнем матче РК «Динамо-Москва»"
+                            data-caption="3 года с РК «Динамо-Москва»: организация матчей, промо-акций и выставочных экспозиций клуба.">
+                            <img src="/static/img/cases/dinamo.jpeg"
+                                alt="Команда UArt на домашнем матче РК «Динамо-Москва»" loading="lazy" />
+                            <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
+                        </button>
+                        <div class="card__body">
+                            <h3>3 года с РК «Динамо-Москва»</h3>
+                            <p class="small">Организация домашних матчей, промо-акций и выставочных экспозиций клуба.
+                            </p>
+                        </div>
+                    </article>
+                    <article class="card card--case">
+                        <button class="card__media" type="button" data-image="/static/img/cases/sever.jpeg"
+                            data-alt="Сцена фестиваля на севере России"
+                            data-caption="Фестивали на севере России: полная организация и работа с молодёжными сообществами региона.">
+                            <img src="/static/img/cases/sever.jpeg" alt="Сцена фестиваля на севере России"
+                                loading="lazy" />
+                            <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
+                        </button>
+                        <div class="card__body">
+                            <h3>Фестивали на севере России</h3>
+                            <p class="small">Организация фестивалей совместно с молодёжными сообществами региона.</p>
+                        </div>
+                    </article>
+                    <article class="card card--case">
+                        <button class="card__media" type="button" data-image="/static/img/cases/leto.JPG"
+                            data-alt="Спортивная площадка проекта «Лето в Москве»"
+                            data-caption="«Лето в Москве»: монтаж и демонтаж спортивных площадок, логистика и контроль подрядчиков.">
+                            <img src="/static/img/cases/leto.JPG" alt="Спортивная площадка проекта «Лето в Москве»"
+                                loading="lazy" />
+                            <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
+                        </button>
+                        <div class="card__body">
+                            <h3>«Лето в Москве»</h3>
+                            <p class="small">Монтаж и демонтаж спортивных площадок, логистика и контроль подрядчиков.
+                            </p>
+                        </div>
+                    </article>
+                    <article class="card card--case">
+                        <button class="card__media" type="button" data-image="/static/img/cases/2030.JPG"
+                            data-alt="Интерактивная зона проекта «Москва 2030»"
+                            data-caption="«Москва 2030»: управление интерактивными площадками и модерация потока гостей.">
+                            <img src="/static/img/cases/2030.JPG" alt="Интерактивная зона проекта «Москва 2030»"
+                                loading="lazy" />
+                            <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
+                        </button>
+                        <div class="card__body">
+                            <h3>«Москва 2030»</h3>
+                            <p class="small">Организация работы интерактивных площадок и их модерация.</p>
+                        </div>
+                    </article>
+                    <article class="card card--case">
+                        <button class="card__media" type="button" data-image="/static/img/cases/berizaryad.JPG"
+                            data-alt="Зона бренда на VK Fest"
+                            data-caption="«Бери заряд» на VK Fest: подбор и координация тех-промо персонала для бренд-зоны.">
+                            <img src="/static/img/cases/berizaryad.JPG" alt="Зона бренда на VK Fest" loading="lazy" />
+                            <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
+                        </button>
+                        <div class="card__body">
+                            <h3>«Бери заряд» на VK Fest</h3>
+                            <p class="small">Подбор и координация тех-промо персонала для бренд-зоны.</p>
+                        </div>
+                    </article>
+                    <article class="card card--case">
+                        <button class="card__media" type="button" data-image="/static/img/cases/koncert.PNG"
+                            data-alt="Световое шоу на концерте UArt"
+                            data-caption="Концерты и вечеринки: разработка концепции и управление лайв-событиями.">
+                            <img src="/static/img/cases/koncert.PNG" alt="Световое шоу на концерте UArt"
+                                loading="lazy" />
+                            <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
+                        </button>
+                        <div class="card__body">
+                            <h3>Концерты и вечеринки</h3>
+                            <p class="small">Разработка концепции, подбор артистов и полное управление событиями.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--alt" id="advantages" aria-labelledby="advantagesTitle">
+            <div class="container">
+                <header class="section__header">
+                    <h2 id="advantagesTitle">Преимущества сотрудничества</h2>
+                    <p class="section__lead">Гибкость, единый контроль и команда практиков — наша философия. С нами вы
+                        сфокусированы на стратегии, а мы закрываем операционные вопросы.</p>
+                </header>
+                <div class="feature-grid">
+                    <article class="card card--advantage">
+                        <h3>Гибкость сотрудничества</h3>
+                        <p class="small">Подбираем команду и сервисы под конкретный проект, масштабируем ресурсы по
+                            требованию.</p>
+                    </article>
+                    <article class="card card--advantage">
+                        <h3>Единый контроль</h3>
+                        <p class="small">Один ответственный за весь проект, прозрачная отчётность и SLA.</p>
+                    </article>
+                    <article class="card card--advantage">
+                        <h3>Профессиональная команда</h3>
+                        <p class="small">Опытные менеджеры и специалисты сопровождают проект от брифа до post-event
+                            отчёта.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--alt">
+            <div class="container hero__layout">
+                <div class="hero__content">
+                    <header class="section__header section__header--compact">
+                        <h2>Форма для соискателей</h2>
+                        <p class="section__lead">
+                            Расскажите, какую роль готовы взять в наших проектах.
+                        </p>
+                    </header>
+                </div>
+
+                <aside class="hero__form">
+                    <form class="form card" id="applicantsForm" novalidate>
+                        <fieldset class="form__group">
+                            <legend class="sr-only">Заявка соискателя</legend>
+
+                            <label class="field">
+                                <span class="field__label">Имя</span>
+                                <input class="input" name="name" type="text" placeholder="Ваше имя" autocomplete="name"
+                                    required />
+                            </label>
+
+                            <label class="field">
+                                <span class="field__label">Телефон</span>
+                                <input class="input" name="phone" type="tel" placeholder="+7 (___) ___-__-__"
+                                    autocomplete="tel" inputmode="tel" required />
+                            </label>
+
+                            <label class="field">
+                                <span class="field__label">Желаемая позиция</span>
+                                <select class="input" name="position" required>
+                                    <option value="hostess">Хостес</option>
+                                    <option value="waiter">Официант</option>
+                                    <option value="bartender">Бармен</option>
+                                    <option value="promoter">Промоутер</option>
+                                    <option value="technician">Техник</option>
+                                </select>
+                            </label>
+
+                            <label class="field">
+                                <span class="field__label">Опыт работы</span>
+                                <textarea class="textarea" name="experience"
+                                    placeholder="Расскажите кратко о своем опыте или любимом проекте"
+                                    rows="3"></textarea>
+                            </label>
+
+                            <label class="field">
+                                <span class="field__label">Резюме (ссылка или файл)</span>
+                                <textarea class="textarea" name="resume"
+                                    placeholder="Добавьте ссылку на портфолио или опишите себя подробнее"
+                                    rows="3"></textarea>
+                            </label>
+                        </fieldset>
+
+                        <div class="form__actions">
+                            <button class="btn btn--accent" type="submit">Отправить заявку</button>
+                            <button class="btn btn--ghost" type="button" id="contactCall">Перезвоните мне</button>
+                        </div>
+                        <p class="form__note small">Нажимая на кнопку, вы даете согласие на обработку персональных
+                            данных и
+                            соглашаетесь с политикой конфиденциальности согласно Федеральному закону № 152-ФЗ от
+                            27.07.2006 «О
+                            персональных данных».</p>
+                    </form>
+                </aside>
+            </div>
+        </section>
+
+        <section class="section section--team" id="team" aria-labelledby="teamTitle">
+            <div class="container">
+                <header class="section__header">
+                    <h2 id="teamTitle">Команда проекта</h2>
+                    <p class="section__lead">UArt — это люди, которые берут ответственность за результат и держат
+                        клиента в
+                        фокусе.</p>
+                </header>
+                <div class="team-grid">
+                    <article class="card team-card">
+                        <div class="team-card__media" data-initials="АЮ">
+                            <img src="/static/img/team/artem.jpg" alt="Руководитель проекта — Артём Юртайкин"
+                                loading="lazy" />
+                        </div>
+                        <div class="team-card__body">
+                            <h3>Артём Юртайкин</h3>
+                            <p class="team-card__role">Руководитель проекта UArt</p>
+                        </div>
+                    </article>
+                    <article class="card team-card">
+                        <div class="team-card__media" data-initials="ЕП">
+                            <img src="/static/img/team/ekaterina.jpg"
+                                alt="Руководитель проектной деятельности — Екатерина" loading="lazy" />
+                        </div>
+                        <div class="team-card__body">
+                            <h3>Екатерина</h3>
+                            <p class="team-card__role">Руководитель проектной деятельности</p>
+                        </div>
+                    </article>
+                    <article class="card team-card">
+                        <div class="team-card__media" data-initials="КС">
+                            <img src="/static/img/team/kirill.jpg" alt="Специалист по работе с персоналом — Кирилл"
+                                loading="lazy" />
+                        </div>
+                        <div class="team-card__body">
+                            <h3>Кирилл Салахов</h3>
+                            <p class="team-card__role">Специалист по работе с персоналом</p>
+                        </div>
+                    </article>
+                    <article class="card team-card">
+                        <div class="team-card__media" data-initials="ЛЗ">
+                            <img src="/static/img/team/leonid.jpg" alt="Технический специалист — Леонид"
+                                loading="lazy" />
+                        </div>
+                        <div class="team-card__body">
+                            <h3>Леонид Зубань</h3>
+                            <p class="team-card__role">Технический специалист</p>
+                        </div>
+                    </article>
+                    <article class="card team-card">
+                        <div class="team-card__media" data-initials="АМ">
+                            <img src="/static/img/team/alexander.jpg" alt="Менеджер промо-проектов — Александр"
+                                loading="lazy" />
+                        </div>
+                        <div class="team-card__body">
+                            <h3>Александр </h3>
+                            <p class="team-card__role">Менеджер промо-проектов</p>
+                        </div>
+                    </article>
+                    <article class="card team-card">
+                        <div class="team-card__media" data-initials="ШГ">
+                            <img src="/static/img/team/shaggy.jpg" alt="Музыкальный директор и диджей — Шах (SHAGGY)"
+                                loading="lazy" />
+                        </div>
+                        <div class="team-card__body">
+                            <h3>Шах (SHAGGY)</h3>
+                            <p class="team-card__role">Музыкальный директор / диджей</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contacts" aria-labelledby="contactsTitle">
+            <div class="container contacts__layout">
+                <div>
+                    <header class="section__header section__header--compact">
+                        <h2 id="contactsTitle">Свяжитесь с нами</h2>
+                        <p class="section__lead">Расскажите о проекте — мы предложим формат и команду под ваши задачи.
+                        </p>
+                    </header>
+                    <ul class="contact-list">
+                        <li><span class="contact-label">Адрес</span><span>Москва, ул. Новая, 99</span></li>
+                        <li><span class="contact-label">E-mail</span><a href="mailto:uart@uart.work">uart@uart.work</a>
+                        </li>
+                        <li><span class="contact-label">Телефон</span><a href="tel:+79999999999">8 (999) 999-99-99</a>
+                        </li>
+                    </ul>
+                </div>
+                <aside class="card contacts__form">
+                    <form id="contactForm" class="form" novalidate>
+                        <fieldset class="form__group">
+                            <legend class="sr-only">Получить консультацию</legend>
+                            <label class="field">
+                                <span class="field__label">Имя</span>
+                                <input class="input" name="fullName" type="text" placeholder="Ваше имя"
+                                    autocomplete="name" required />
+                            </label>
+                            <label class="field">
+                                <span class="field__label">Телефон</span>
+                                <input class="input" name="contactPhone" type="tel" placeholder="+7 (___) ___-__-__"
+                                    autocomplete="tel" inputmode="tel" required />
+                            </label>
+
+                            <label class="field">
+                                <span class="field__label">Комментарий</span>
+                                <textarea class="textarea" name="comment" placeholder="Опишите задачу или вопросы"
+                                    rows="3"></textarea>
+                            </label>
+                        </fieldset>
+                        <div class="form__actions">
+                            <button class="btn btn--accent" type="submit">Отправить заявку</button>
+                            <button class="btn btn--ghost" type="button" id="contactCall">Позвонить</button>
+                        </div>
+                        <p class="form__note small">Нажимая на кнопку, вы даете согласие на обработку персональных
+                            данных и
+                            соглашаетесь с политикой конфиденциальности согласно Федеральному закону № 152-ФЗ от
+                            27.07.2006 «О
+                            персональных данных».</p>
+                    </form>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer__layout">
+            <div class="footer__brand">
+                <a class="logo" href="#hero" aria-label="UArt">UArt</a>
+                <p class="small">UArt — ваши надёжные партнёры в организации ярких и безупречных событий.</p>
+            </div>
+            <div class="footer__meta">
+                <p class="small">
+                    <a href="#">Политика конфиденциальности</a> ·
+                    <a href="#">Пользовательское соглашение</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="caseLightbox" hidden>
+        <div class="lightbox__dialog" role="dialog" aria-modal="true">
+            <button class="lightbox__close" type="button" id="caseLightboxClose">&times;</button>
+            <img class="lightbox__image" id="caseLightboxImage" alt="" />
+            <p class="lightbox__caption" id="caseLightboxCaption" hidden></p>
+        </div>
     </div>
-  </header>
-  <div class="nav-backdrop" id="navBackdrop" hidden></div>
 
-  <main class="site-main" id="hero">
-    <section class="hero">
-      <div class="container hero__layout">
-        <div class="hero__content">
-          <p class="eyebrow">Event Project Studio</p>
-          <h1>UArt — надёжные партнёры в организации ярких и безупречных событий</h1>
-          <p class="lead">Прорабатываем концепцию, подбираем команду, управляем площадкой и подрядчиками, чтобы вы
-            получили безупречный результат и довольную аудиторию.</p>
-        </div>
-        <aside class="hero__form">
-          <form class="form card" id="heroForm" novalidate>
-            <fieldset class="form__group">
-              <legend class="sr-only">Заявка на встречу</legend>
-              <label class="field">
-                <span class="field__label">Имя</span>
-                <input class="input" name="name" type="text" placeholder="Ваше имя" autocomplete="name" required />
-              </label>
-              <label class="field">
-                <span class="field__label">Телефон</span>
-                <input class="input" name="phone" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel"
-                  inputmode="tel" required />
-              </label>
-              <label class="field">
-                <span class="field__label">Комментарий</span>
-                <textarea class="textarea" name="comment" placeholder="Опишите задачу или вопросы" rows="3"></textarea>
-              </label>
-            </fieldset>
-            <div class="form__actions">
-              <button class="btn btn--accent" type="submit">Отправить заявку</button>
-              <button class="btn btn--ghost" type="button" id="contactCall">Позвонить</button>
-            </div>
-            <p class="form__note small">Нажимая на кнопку, вы даете согласие на обработку персональных данных и
-              соглашаетесь с политикой конфиденциальности согласно Федеральному закону № 152-ФЗ от 27.07.2006 «О
-              персональных данных».</p>
-          </form>
-        </aside>
-      </div>
-    </section>
-
-    <section class="section" id="services" aria-labelledby="servicesTitle">
-      <div class="container">
-        <header class="section__header">
-          <h2 id="servicesTitle">Наши услуги</h2>
-          <p class="section__lead">Организация мероприятий: концепция, площадка, логистика. Аренда персонала: хостес,
-            официанты, бармены, монтажники, промоутеры, координаторы.</p>
-        </header>
-        <div class="card-grid">
-          <article class="card card--service">
-            <h3>Организация мероприятий</h3>
-            <p class="small">Берем на себя разработку концепции, аренду площадки, логистику.</p>
-          </article>
-          <article class="card card--service">
-            <h3>Разработка сценария</h3>
-            <p class="small">Создание уникальной концепции и сценарного плана под формат события.</p>
-          </article>
-          <article class="card card--service">
-            <h3>Координация и продакшн</h3>
-            <p class="small">Полное сопровождение — от логистики и подрядчиков до тайминга и гостей.</p>
-          </article>
-          <article class="card card--service">
-            <h3>Хостес</h3>
-            <p class="small">Профессиональные хостес для деловых, культурных и промо-активностей.</p>
-          </article>
-          <article class="card card--service">
-            <h3>Официанты</h3>
-            <p class="small">Подбор и брифинг команды официантов под стандарты вашего события.</p>
-          </article>
-          <article class="card card--service">
-            <h3>Бармены</h3>
-            <p class="small">Бармены с авторскими сетами и знанием сервисных регламентов.</p>
-          </article>
-          <article class="card card--service">
-            <h3>Монтажники</h3>
-            <p class="small">Своевременный монтаж и демонтаж сцен, конструкций и технического оборудования.</p>
-          </article>
-          <article class="card card--service">
-            <h3>Промоутеры</h3>
-            <p class="small">Команды промо-персонала для городских и брендовых активаций.</p>
-          </article>
-          <article class="card card--service">
-            <h3>Координаторы</h3>
-            <p class="small">Координаторы берут на себя потоки гостей, подрядчиков и логистику.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--alt" id="eventTypes" aria-labelledby="eventTypesTitle">
-      <div class="container">
-        <header class="section__header">
-          <h2 id="eventTypesTitle">Форматы событий</h2>
-          <p class="section__lead">Работаем с корпоративными, частными и публичными проектами. Для каждой задачи — своя
-            команда и сценарий.</p>
-        </header>
-        <div class="feature-grid">
-          <article class="card card--format">
-            <button class="card__media" type="button" data-image="/static/img/cases/korporat.jpg"
-              data-alt="Корпоративное событие UArt"
-              data-caption="Корпоративные события: конференции, тренинги, тимбилдинги и партнёрские мероприятия.">
-              <img src="/static/img/cases/korporat.jpg" alt="Корпоративное событие UArt" loading="lazy" />
-              <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
-            </button>
-            <div class="card__body">
-              <h3>Корпоративные события</h3>
-              <p class="small">Конференции, стратегические сессии, тимбилдинги и партнёрские встречи под цели бизнеса.
-              </p>
-            </div>
-          </article>
-          <article class="card card--format">
-            <button class="card__media" type="button" data-image="/static/img/cases/private.PNG"
-              data-alt="Частное мероприятие UArt"
-              data-caption="Частные мероприятия: свадьбы, юбилеи, выпускные и семейные торжества.">
-              <img src="/static/img/cases/private.PNG" alt="Частное мероприятие UArt" loading="lazy" />
-              <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
-            </button>
-            <div class="card__body">
-              <h3>Частные мероприятия</h3>
-              <p class="small">Свадьбы, юбилеи, выпускные и семейные праздники с индивидуальным сценарием.</p>
-            </div>
-          </article>
-          <article class="card card--format">
-            <button class="card__media" type="button" data-image="/static/img/cases/public.jpg"
-              data-alt="Публичный проект UArt"
-              data-caption="Публичные проекты: фестивали, концерты, ярмарки и городские активности.">
-              <img src="/static/img/cases/public.jpg" alt="Публичный проект UArt" loading="lazy" />
-              <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
-            </button>
-            <div class="card__body">
-              <h3>Публичные проекты</h3>
-              <p class="small">Фестивали, концерты, ярмарки и городские активности, которые вовлекают широкую аудиторию.
-              </p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="cases" aria-labelledby="casesTitle">
-      <div class="container">
-        <header class="section__header">
-          <h2 id="casesTitle">Примеры успешных кейсов</h2>
-          <p class="section__lead">Сопровождаем проекты разных масштабов — от спортивных клубов до крупных фестивалей.
-            Делимся фактами, потому что уверены в результате.</p>
-        </header>
-        <div class="card-grid">
-          <article class="card card--case">
-            <button class="card__media" type="button" data-image="/static/img/cases/dinamo.jpeg"
-              data-alt="Команда UArt на домашнем матче РК «Динамо-Москва»"
-              data-caption="3 года с РК «Динамо-Москва»: организация матчей, промо-акций и выставочных экспозиций клуба.">
-              <img src="/static/img/cases/dinamo.jpeg" alt="Команда UArt на домашнем матче РК «Динамо-Москва»"
-                loading="lazy" />
-              <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
-            </button>
-            <div class="card__body">
-              <h3>3 года с РК «Динамо-Москва»</h3>
-              <p class="small">Организация домашних матчей, промо-акций и выставочных экспозиций клуба.</p>
-            </div>
-          </article>
-          <article class="card card--case">
-            <button class="card__media" type="button" data-image="/static/img/cases/sever.jpeg"
-              data-alt="Сцена фестиваля на севере России"
-              data-caption="Фестивали на севере России: полная организация и работа с молодёжными сообществами региона.">
-              <img src="/static/img/cases/sever.jpeg" alt="Сцена фестиваля на севере России" loading="lazy" />
-              <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
-            </button>
-            <div class="card__body">
-              <h3>Фестивали на севере России</h3>
-              <p class="small">Организация фестивалей совместно с молодёжными сообществами региона.</p>
-            </div>
-          </article>
-          <article class="card card--case">
-            <button class="card__media" type="button" data-image="/static/img/cases/leto.JPG"
-              data-alt="Спортивная площадка проекта «Лето в Москве»"
-              data-caption="«Лето в Москве»: монтаж и демонтаж спортивных площадок, логистика и контроль подрядчиков.">
-              <img src="/static/img/cases/leto.JPG" alt="Спортивная площадка проекта «Лето в Москве»" loading="lazy" />
-              <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
-            </button>
-            <div class="card__body">
-              <h3>«Лето в Москве»</h3>
-              <p class="small">Монтаж и демонтаж спортивных площадок, логистика и контроль подрядчиков.</p>
-            </div>
-          </article>
-          <article class="card card--case">
-            <button class="card__media" type="button" data-image="/static/img/cases/2030.JPG"
-              data-alt="Интерактивная зона проекта «Москва 2030»"
-              data-caption="«Москва 2030»: управление интерактивными площадками и модерация потока гостей.">
-              <img src="/static/img/cases/2030.JPG" alt="Интерактивная зона проекта «Москва 2030»" loading="lazy" />
-              <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
-            </button>
-            <div class="card__body">
-              <h3>«Москва 2030»</h3>
-              <p class="small">Организация работы интерактивных площадок и их модерация.</p>
-            </div>
-          </article>
-          <article class="card card--case">
-            <button class="card__media" type="button" data-image="/static/img/cases/berizaryad.JPG"
-              data-alt="Зона бренда на VK Fest"
-              data-caption="«Бери заряд» на VK Fest: подбор и координация тех-промо персонала для бренд-зоны.">
-              <img src="/static/img/cases/berizaryad.JPG" alt="Зона бренда на VK Fest" loading="lazy" />
-              <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
-            </button>
-            <div class="card__body">
-              <h3>«Бери заряд» на VK Fest</h3>
-              <p class="small">Подбор и координация тех-промо персонала для бренд-зоны.</p>
-            </div>
-          </article>
-          <article class="card card--case">
-            <button class="card__media" type="button" data-image="/static/img/cases/koncert.PNG"
-              data-alt="Световое шоу на концерте UArt"
-              data-caption="Концерты и вечеринки: разработка концепции и управление лайв-событиями.">
-              <img src="/static/img/cases/koncert.PNG" alt="Световое шоу на концерте UArt" loading="lazy" />
-              <span class="card__media-zoom" aria-hidden="true">Смотреть</span>
-            </button>
-            <div class="card__body">
-              <h3>Концерты и вечеринки</h3>
-              <p class="small">Разработка концепции, подбор артистов и полное управление событиями.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--alt" id="advantages" aria-labelledby="advantagesTitle">
-      <div class="container">
-        <header class="section__header">
-          <h2 id="advantagesTitle">Преимущества сотрудничества</h2>
-          <p class="section__lead">Гибкость, единый контроль и команда практиков — наша философия. С нами вы
-            сфокусированы на стратегии, а мы закрываем операционные вопросы.</p>
-        </header>
-        <div class="feature-grid">
-          <article class="card card--advantage">
-            <h3>Гибкость сотрудничества</h3>
-            <p class="small">Подбираем команду и сервисы под конкретный проект, масштабируем ресурсы по требованию.</p>
-          </article>
-          <article class="card card--advantage">
-            <h3>Единый контроль</h3>
-            <p class="small">Один ответственный за весь проект, прозрачная отчётность и SLA.</p>
-          </article>
-          <article class="card card--advantage">
-            <h3>Профессиональная команда</h3>
-            <p class="small">Опытные менеджеры и специалисты сопровождают проект от брифа до post-event отчёта.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--alt">
-      <div class="container hero__layout">
-        <div class="hero__content">
-          <header class="section__header section__header--compact">
-            <h2>Форма для соискателей</h2>
-            <p class="section__lead">
-              Расскажите, какую роль готовы взять в наших проектах.
-            </p>
-          </header>
-        </div>
-
-        <aside class="hero__form">
-          <form class="form card" id="applicantsForm" novalidate>
-            <fieldset class="form__group">
-              <legend class="sr-only">Заявка соискателя</legend>
-
-              <label class="field">
-                <span class="field__label">Имя</span>
-                <input class="input" name="name" type="text" placeholder="Ваше имя" autocomplete="name" required />
-              </label>
-
-              <label class="field">
-                <span class="field__label">Телефон</span>
-                <input class="input" name="phone" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel"
-                  inputmode="tel" required />
-              </label>
-
-              <label class="field">
-                <span class="field__label">Желаемая позиция</span>
-                <select class="input" name="position" required>
-                  <option value="hostess">Хостес</option>
-                  <option value="waiter">Официант</option>
-                  <option value="bartender">Бармен</option>
-                  <option value="promoter">Промоутер</option>
-                  <option value="technician">Техник</option>
-                </select>
-              </label>
-
-              <label class="field">
-                <span class="field__label">Опыт работы</span>
-                <textarea class="textarea" name="experience"
-                  placeholder="Расскажите кратко о своем опыте или любимом проекте" rows="3"></textarea>
-              </label>
-
-              <label class="field">
-                <span class="field__label">Резюме (ссылка или файл)</span>
-                <textarea class="textarea" name="resume"
-                  placeholder="Добавьте ссылку на портфолио или опишите себя подробнее" rows="3"></textarea>
-              </label>
-            </fieldset>
-
-            <div class="form__actions">
-              <button class="btn btn--accent" type="submit">Отправить заявку</button>
-              <button class="btn btn--ghost" type="button" id="contactCall">Перезвоните мне</button>
-            </div>
-            <p class="form__note small">Нажимая на кнопку, вы даете согласие на обработку персональных данных и
-              соглашаетесь с политикой конфиденциальности согласно Федеральному закону № 152-ФЗ от 27.07.2006 «О
-              персональных данных».</p>
-          </form>
-        </aside>
-      </div>
-    </section>
-
-    <section class="section section--team" id="team" aria-labelledby="teamTitle">
-      <div class="container">
-        <header class="section__header">
-          <h2 id="teamTitle">Команда проекта</h2>
-          <p class="section__lead">UArt — это люди, которые берут ответственность за результат и держат клиента в
-            фокусе.</p>
-        </header>
-        <div class="team-grid">
-          <article class="card team-card">
-            <div class="team-card__media" data-initials="АЮ">
-              <img src="/static/img/team/artem.jpg" alt="Руководитель проекта — Артём Юртайкин" loading="lazy" />
-            </div>
-            <div class="team-card__body">
-              <h3>Артём Юртайкин</h3>
-              <p class="team-card__role">Руководитель проекта UArt</p>
-            </div>
-          </article>
-          <article class="card team-card">
-            <div class="team-card__media" data-initials="ЕП">
-              <img src="/static/img/team/ekaterina.jpg" alt="Руководитель проектной деятельности — Екатерина"
-                loading="lazy" />
-            </div>
-            <div class="team-card__body">
-              <h3>Екатерина</h3>
-              <p class="team-card__role">Руководитель проектной деятельности</p>
-            </div>
-          </article>
-          <article class="card team-card">
-            <div class="team-card__media" data-initials="КС">
-              <img src="/static/img/team/kirill.jpg" alt="Специалист по работе с персоналом — Кирилл" loading="lazy" />
-            </div>
-            <div class="team-card__body">
-              <h3>Кирилл Салахов</h3>
-              <p class="team-card__role">Специалист по работе с персоналом</p>
-            </div>
-          </article>
-          <article class="card team-card">
-            <div class="team-card__media" data-initials="ЛЗ">
-              <img src="/static/img/team/leonid.jpg" alt="Технический специалист — Леонид" loading="lazy" />
-            </div>
-            <div class="team-card__body">
-              <h3>Леонид Зубань</h3>
-              <p class="team-card__role">Технический специалист</p>
-            </div>
-          </article>
-          <article class="card team-card">
-            <div class="team-card__media" data-initials="АМ">
-              <img src="/static/img/team/alexander.jpg" alt="Менеджер промо-проектов — Александр" loading="lazy" />
-            </div>
-            <div class="team-card__body">
-              <h3>Александр </h3>
-              <p class="team-card__role">Менеджер промо-проектов</p>
-            </div>
-          </article>
-          <article class="card team-card">
-            <div class="team-card__media" data-initials="ШГ">
-              <img src="/static/img/team/shaggy.jpg" alt="Музыкальный директор и диджей — Шах (SHAGGY)"
-                loading="lazy" />
-            </div>
-            <div class="team-card__body">
-              <h3>Шах (SHAGGY)</h3>
-              <p class="team-card__role">Музыкальный директор / диджей</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="contacts" aria-labelledby="contactsTitle">
-      <div class="container contacts__layout">
-        <div>
-          <header class="section__header section__header--compact">
-            <h2 id="contactsTitle">Свяжитесь с нами</h2>
-            <p class="section__lead">Расскажите о проекте — мы предложим формат и команду под ваши задачи.</p>
-          </header>
-          <ul class="contact-list">
-            <li><span class="contact-label">Адрес</span><span>Москва, ул. Новая, 99</span></li>
-            <li><span class="contact-label">E-mail</span><a href="mailto:uart@uart.work">uart@uart.work</a></li>
-            <li><span class="contact-label">Телефон</span><a href="tel:+79999999999">8 (999) 999-99-99</a></li>
-          </ul>
-        </div>
-        <aside class="card contacts__form">
-          <form id="contactForm" class="form" novalidate>
-            <fieldset class="form__group">
-              <legend class="sr-only">Получить консультацию</legend>
-              <label class="field">
-                <span class="field__label">Имя</span>
-                <input class="input" name="fullName" type="text" placeholder="Ваше имя" autocomplete="name" required />
-              </label>
-              <label class="field">
-                <span class="field__label">Телефон</span>
-                <input class="input" name="contactPhone" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel"
-                  inputmode="tel" required />
-              </label>
-
-              <label class="field">
-                <span class="field__label">Комментарий</span>
-                <textarea class="textarea" name="comment" placeholder="Опишите задачу или вопросы" rows="3"></textarea>
-              </label>
-            </fieldset>
-            <div class="form__actions">
-              <button class="btn btn--accent" type="submit">Отправить заявку</button>
-              <button class="btn btn--ghost" type="button" id="contactCall">Позвонить</button>
-            </div>
-            <p class="form__note small">Нажимая на кнопку, вы даете согласие на обработку персональных данных и
-              соглашаетесь с политикой конфиденциальности согласно Федеральному закону № 152-ФЗ от 27.07.2006 «О
-              персональных данных».</p>
-          </form>
-        </aside>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer__layout">
-      <div class="footer__brand">
-        <a class="logo" href="#hero" aria-label="UArt">UArt</a>
-        <p class="small">UArt — ваши надёжные партнёры в организации ярких и безупречных событий.</p>
-      </div>
-      <div class="footer__meta">
-        <p class="small">
-          <a href="#">Политика конфиденциальности</a> ·
-          <a href="#">Пользовательское соглашение</a>
-        </p>
-      </div>
-    </div>
-  </footer>
-
-  <div class="lightbox" id="caseLightbox" hidden>
-    <div class="lightbox__dialog" role="dialog" aria-modal="true">
-      <button class="lightbox__close" type="button" id="caseLightboxClose">&times;</button>
-      <img class="lightbox__image" id="caseLightboxImage" alt="" />
-      <p class="lightbox__caption" id="caseLightboxCaption" hidden></p>
-    </div>
-  </div>
-
-  <script src="/static/script.js" defer></script>
+    <script src="/static/script.js" defer></script>
 </body>
 
 </html>
