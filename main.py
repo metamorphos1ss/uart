@@ -10,6 +10,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 async def root():
     return FileResponse("static/index.html")
 
-@app.get("/healtz")
-def healtz():
-    return {ok: True}
+@app.get("/healthz")
+def healthz():
+    return {"ok": True}
