@@ -323,13 +323,6 @@ document.addEventListener('DOMContentLoaded', () => {
         img.style.display = 'none';
         img.setAttribute('aria-hidden', 'true');
       }
-
-      if (!media.querySelector('.media-initials')) {
-        const span = document.createElement('span');
-        span.className = 'media-initials';
-        span.textContent = (media.getAttribute('data-initials') || '').trim();
-        media.appendChild(span);
-      }
     };
 
     if (!img) {
