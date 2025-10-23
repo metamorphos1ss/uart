@@ -316,13 +316,26 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Team photo fallbacks */
   teamMedia.forEach(media => {
     const img = media.querySelector('img');
-    if (!img) return;
 
     const activateFallback = () => {
       media.classList.add('is-fallback');
-      img.style.display = 'none';
-      img.setAttribute('aria-hidden', 'true');
+      if (img) {
+        img.style.display = 'none';
+        img.setAttribute('aria-hidden', 'true');
+      }
+
+      if (!media.querySelector('.media-initials')) {
+        const span = document.createElement('span');
+        span.className = 'media-initials';
+        span.textContent = (media.getAttribute('data-initials') || '').trim();
+        media.appendChild(span);
+      }
     };
+
+    if (!img) {
+      activateFallback();
+      return;
+    }
 
     const checkImage = () => {
       if (img.complete && img.naturalWidth === 0) {
