@@ -1,0 +1,58 @@
+name: Deploy to DEV
+
+on:
+  push:
+    branches: ["dev"]
+  # опционально руками:
+  # workflow_dispatch: {}
+
+concurrency:
+  group: deploy-dev
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_PORT: ${{ secrets.SSH_PORT }}
+      SSH_USER: ${{ secrets.SSH_USER }}
+      TARGET_DIR: ${{ secrets.TARGET_DIR_DEV }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Compose release name
+        id: rel
+        run: |
+          TS=$(date -u +"%Y-%m-%dT%H-%M-%SZ")
+          echo "name=${TS}__${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+
+      - name: Upload code (rsync → new release)
+        run: |
+          RELEASE_DIR="$TARGET_DIR/releases/${{ steps.rel.outputs.name }}"
+          ssh -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" "mkdir -p '$RELEASE_DIR'"
+          rsync -az --delete \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude '__pycache__' \
+            -e "ssh -p $SSH_PORT" \
+            ./ "$SSH_USER@$SSH_HOST:$RELEASE_DIR/"
+
+      - name: Activate release
+        run: |
+          ssh -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
+            "TARGET_DIR='$TARGET_DIR' RELEASE_NAME='${{ steps.rel.outputs.name }}' bash '$TARGET_DIR/deploy_remote.sh'"
+
+      - name: Health check
+        run: |
+          ssh -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
+            "curl -fsS http://127.0.0.1:8081/healthz | grep -q '\"ok\": *true' || (journalctl -u uart-dev --no-pager -n 100; exit 1)"
