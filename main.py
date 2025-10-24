@@ -23,6 +23,6 @@ async def root():
 async def healthz():
     return {"ok": True}
 
-@app.get("/api/submit")
+@app.post("/api/submit")
 async def submit():
     return {"api": True}
