@@ -8,6 +8,77 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   const body = document.body;
+  const themeToggle = document.getElementById('themeToggle');
+  const themeToggleLabel = themeToggle ? themeToggle.querySelector('.theme-toggle__label') : null;
+  const themeMediaQuery = typeof window.matchMedia === 'function' ? window.matchMedia('(prefers-color-scheme: light)') : null;
+  const THEME_STORAGE_KEY = 'uart-theme';
+  const themeLabels = {
+    light: themeToggle?.dataset?.labelLight || 'Тёмная тема',
+    dark: themeToggle?.dataset?.labelDark || 'Светлая тема',
+  };
+
+  const getStoredTheme = () => {
+    try {
+      return window.localStorage.getItem(THEME_STORAGE_KEY);
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const setStoredTheme = value => {
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, value);
+    } catch (error) {
+      // noop
+    }
+  };
+
+  const getThemeLabel = isLight => (isLight ? themeLabels.light : themeLabels.dark);
+
+  const applyTheme = theme => {
+    const isLight = theme === 'light';
+    body.classList.toggle('theme-light', isLight);
+    body.dataset.theme = isLight ? 'light' : 'dark';
+    if (themeToggle) {
+      const labelText = getThemeLabel(isLight);
+      themeToggle.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+      themeToggle.setAttribute('aria-label', labelText);
+      themeToggle.title = labelText;
+      if (themeToggleLabel) {
+        themeToggleLabel.textContent = labelText;
+      }
+    }
+  };
+
+  const storedTheme = getStoredTheme();
+  const hasStoredTheme = storedTheme === 'light' || storedTheme === 'dark';
+  const initialTheme = hasStoredTheme
+    ? storedTheme
+    : (themeMediaQuery?.matches ? 'light' : 'dark');
+
+  applyTheme(initialTheme);
+
+  const handleSchemeChange = event => {
+    if (getStoredTheme()) {
+      return;
+    }
+    applyTheme(event.matches ? 'light' : 'dark');
+  };
+
+  if (!hasStoredTheme && themeMediaQuery) {
+    if (typeof themeMediaQuery.addEventListener === 'function') {
+      themeMediaQuery.addEventListener('change', handleSchemeChange);
+    } else if (typeof themeMediaQuery.addListener === 'function') {
+      themeMediaQuery.addListener(handleSchemeChange);
+    }
+  }
+
+  themeToggle?.addEventListener('click', () => {
+    const nextTheme = body.classList.contains('theme-light') ? 'dark' : 'light';
+    applyTheme(nextTheme);
+    setStoredTheme(nextTheme);
+  });
+
   const yearNode = document.getElementById('year');
   if (yearNode) {
     yearNode.textContent = String(new Date().getFullYear());
