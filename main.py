@@ -3,13 +3,13 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 
-conn = pymysql.connect(
-    host="127.0.0.1",
-    username="uart",
-    password="password",
-    database="uart_prod",
-    charset="utf8mb4"
-)
+# conn = pymysql.connect(
+#     host="127.0.0.1",
+#     username="uart",
+#     password="password",
+#     database="uart_prod",
+#     charset="utf8mb4"
+# )
 
 app = FastAPI()
 
