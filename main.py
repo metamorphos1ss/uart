@@ -13,3 +13,7 @@ async def root():
 @app.get("/healthz")
 def healthz():
     return {"ok": True}
+
+@app.get("/api/submit")
+def submit():
+    return {"api": True}
