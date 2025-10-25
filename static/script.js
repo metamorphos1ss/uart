@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightboxImage = document.getElementById('caseLightboxImage');
   const lightboxCaption = document.getElementById('caseLightboxCaption');
   const lightboxClose = document.getElementById('caseLightboxClose');
+  const carousels = Array.from(document.querySelectorAll('[data-carousel]'));
   let lastFocusedMedia = null;
 
   const showBackdrop = () => {
@@ -378,6 +379,127 @@ document.addEventListener('DOMContentLoaded', () => {
 
   callBtn?.addEventListener('click', () => {
     window.location.href = 'tel:+79999999999';
+  });
+
+  carousels.forEach(carousel => {
+    const viewport = carousel.querySelector('[data-carousel-viewport]');
+    const track = carousel.querySelector('[data-carousel-track]');
+    const originals = Array.from(track?.querySelectorAll('[data-carousel-item]') || []);
+    const prevBtn = carousel.querySelector('[data-carousel-prev]');
+    const nextBtn = carousel.querySelector('[data-carousel-next]');
+
+    if (!viewport || !track || originals.length === 0) {
+      return;
+    }
+
+    const createClone = item => {
+      const clone = item.cloneNode(true);
+      clone.dataset.carouselClone = 'true';
+      clone.setAttribute('aria-hidden', 'true');
+      clone.setAttribute('role', 'presentation');
+      clone.setAttribute('tabindex', '-1');
+      clone.querySelectorAll('a, button, input, textarea, select, [tabindex]').forEach(node => {
+        node.setAttribute('tabindex', '-1');
+        node.setAttribute('aria-hidden', 'true');
+      });
+      return clone;
+    };
+
+    const prependFragment = document.createDocumentFragment();
+    for (let index = originals.length - 1; index >= 0; index -= 1) {
+      prependFragment.appendChild(createClone(originals[index]));
+    }
+    track.insertBefore(prependFragment, track.firstChild);
+
+    const appendFragment = document.createDocumentFragment();
+    originals.forEach(item => {
+      appendFragment.appendChild(createClone(item));
+    });
+    track.appendChild(appendFragment);
+
+    const allItems = Array.from(track.querySelectorAll('[data-carousel-item]'));
+    const originalCount = originals.length;
+    const minIndex = originalCount;
+
+    let currentIndex = minIndex;
+    let itemWidth = 0;
+    let gap = 0;
+
+    const getBaseItem = () => track.querySelector('[data-carousel-item]:not([data-carousel-clone])') || allItems[0];
+
+    const computeMetrics = () => {
+      const baseItem = getBaseItem();
+      if (baseItem) {
+        itemWidth = baseItem.offsetWidth;
+      }
+      const styles = window.getComputedStyle(track);
+      const parsedGap = Number.parseFloat(styles.columnGap || styles.gap || '0');
+      gap = Number.isFinite(parsedGap) ? parsedGap : 0;
+    };
+
+    const getDuration = () => (prefersReducedMotion() ? 0 : 420);
+
+    const applyTransform = (index, animated = true) => {
+      const distance = index * (itemWidth + gap);
+      const value = Number.isFinite(distance) ? `translate3d(-${distance}px, 0, 0)` : 'translate3d(0, 0, 0)';
+      const duration = getDuration();
+      if (!animated || duration === 0) {
+        track.style.transition = 'none';
+        track.style.transform = value;
+        if (duration > 0) {
+          track.getBoundingClientRect();
+          track.style.transition = `transform ${duration}ms ease`;
+        }
+      } else {
+        track.style.transition = `transform ${duration}ms ease`;
+        track.style.transform = value;
+      }
+    };
+
+    const wrapIndex = index => {
+      const span = originalCount;
+      if (span === 0) {
+        return 0;
+      }
+      const offset = ((index - minIndex) % span + span) % span;
+      return minIndex + offset;
+    };
+
+    const wrapIfNeeded = () => {
+      const wrappedIndex = wrapIndex(currentIndex);
+      if (wrappedIndex !== currentIndex) {
+        currentIndex = wrappedIndex;
+        applyTransform(currentIndex, false);
+      }
+    };
+
+    const moveBy = direction => {
+      computeMetrics();
+      currentIndex += direction;
+      applyTransform(currentIndex, true);
+      if (getDuration() === 0) {
+        wrapIfNeeded();
+      }
+    };
+
+    const handleResize = () => {
+      computeMetrics();
+      applyTransform(currentIndex, false);
+      wrapIfNeeded();
+    };
+
+    track.addEventListener('transitionend', event => {
+      if (event.target === track && event.propertyName === 'transform') {
+        wrapIfNeeded();
+      }
+    });
+
+    prevBtn?.addEventListener('click', () => moveBy(-1));
+    nextBtn?.addEventListener('click', () => moveBy(1));
+
+    computeMetrics();
+    applyTransform(currentIndex, false);
+    window.addEventListener('resize', handleResize);
   });
 
   scrollTopBtn?.addEventListener('click', () => {

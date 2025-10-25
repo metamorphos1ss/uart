@@ -738,6 +738,128 @@ body.theme-light .btn--ghost:focus-visible {
   justify-content: center;
 }
 
+.services-carousel {
+  position: relative;
+  margin-top: clamp(1.8rem, 5vw, 2.8rem);
+  padding-inline: clamp(1.5rem, 4vw, 2.5rem);
+  padding-block: clamp(1.2rem, 3vw, 1.8rem);
+  --carousel-gap: clamp(0.4rem, 1.1vw, 1rem);
+  --carousel-visible: 2;
+  background: linear-gradient(140deg, rgba(8, 10, 18, 0.94), rgba(14, 16, 24, 0.88));
+  border: 1px solid rgba(92, 140, 255, 0.12);
+  border-radius: clamp(1.4rem, 3vw, 2rem);
+  box-shadow: 0 38px 110px rgba(0, 0, 0, 0.48);
+  overflow: hidden;
+}
+
+.services-carousel::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: inherit;
+  background:
+    radial-gradient(140% 120% at 18% 12%, rgba(74, 115, 255, 0.12) 0%, transparent 55%),
+    radial-gradient(120% 140% at 82% 84%, rgba(28, 216, 255, 0.14) 0%, transparent 60%);
+  opacity: 0.35;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  z-index: 0;
+}
+
+.services-carousel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.services-carousel > * {
+  position: relative;
+  z-index: 2;
+}
+
+.carousel__viewport {
+  overflow: hidden;
+  width: 100%;
+  padding-block: clamp(0.4rem, 1.2vw, 0.9rem);
+  padding-inline: clamp(0.3rem, 0.9vw, 0.6rem);
+  touch-action: pan-y;
+}
+
+.carousel__track {
+  display: flex;
+  align-items: stretch;
+  gap: var(--carousel-gap);
+  will-change: transform;
+}
+
+.services-carousel .card--service {
+  flex: 0 0 calc((100% - var(--carousel-gap) * (var(--carousel-visible) - 1)) / var(--carousel-visible));
+  max-width: calc((100% - var(--carousel-gap) * (var(--carousel-visible) - 1)) / var(--carousel-visible));
+}
+
+.carousel__control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(34px, 3.6vw, 46px);
+  height: clamp(34px, 3.6vw, 46px);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: rgba(15, 18, 26, 0.72);
+  color: var(--text);
+  transition: var(--transition);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.42);
+  z-index: 2;
+}
+
+.carousel__control span {
+  font-size: clamp(1.3rem, 1.8vw, 1.8rem);
+  line-height: 1;
+}
+
+.carousel__control--prev {
+  left: clamp(0.35rem, 1.6vw, 1.2rem);
+}
+
+.carousel__control--next {
+  right: clamp(0.35rem, 1.6vw, 1.2rem);
+}
+
+.carousel__control:hover,
+.carousel__control:focus-visible {
+  color: var(--accent-secondary);
+  border-color: var(--accent);
+  outline: none;
+}
+
+@media (min-width: 72em) {
+  .services-carousel {
+    --carousel-visible: 3;
+  }
+
+}
+
+@media (max-width: 48em) {
+  .services-carousel {
+    --carousel-visible: 1;
+  }
+
+  .carousel__control--prev {
+    left: clamp(0.15rem, 2vw, 0.8rem);
+  }
+
+  .carousel__control--next {
+    right: clamp(0.15rem, 2vw, 0.8rem);
+  }
+}
+
 .applicants {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
