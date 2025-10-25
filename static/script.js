@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const anchors = Array.from(document.querySelectorAll('a[href^="#"]'));
   const heroForm = document.getElementById('heroForm');
-  const contactForm = document.getElementById('contactForm');
+  const applicantsForm = document.getElementById('applicantsForm');
   const callBtn = document.getElementById('contactCall');
   const scrollTopBtn = document.getElementById('scrollTop');
   const nav = document.getElementById('siteNav');
@@ -217,12 +217,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* Form validation shared between hero and contact forms */
-  [heroForm, contactForm].forEach(form => {
-    if (!form) return;
+  /* Form validation + submission */
+  const DEFAULT_MAX_FILE_SIZE = 2 * 1024 * 1024;
+
+  const formConfigs = [
+    {
+      form: heroForm,
+      endpoint: '/api/submit_feedback',
+      successMessage: 'Заявка отправлена! Мы свяжемся с вами в ближайшее время.',
+      serialize: formData => {
+        const payload = {};
+        formData.forEach((value, key) => {
+          if (value instanceof File) {
+            return;
+          }
+          payload[key] = typeof value === 'string' ? value.trim() : value;
+        });
+        return {
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        };
+      },
+    },
+    {
+      form: applicantsForm,
+      endpoint: '/api/submit_applicants',
+      successMessage: 'Спасибо! Мы получили вашу заявку и скоро свяжемся.',
+      fileField: 'resume_file',
+      allowedExtensions: ['pdf', 'doc', 'docx'],
+      allowedMime: [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      ],
+      serialize: formData => ({ body: formData }),
+    },
+  ];
+
+  formConfigs.forEach(config => {
+    const {
+      form,
+      endpoint,
+      successMessage,
+      fileField,
+      allowedExtensions = [],
+      allowedMime = [],
+      serialize,
+    } = config;
+
+    if (!form) {
+      return;
+    }
+
     const fields = Array.from(form.querySelectorAll('[required]'));
 
-    form.addEventListener('submit', event => {
+    form.addEventListener('submit', async event => {
       event.preventDefault();
       let firstInvalid = null;
 
@@ -239,9 +288,70 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      notify('Заявка отправлена! Мы свяжемся в рабочее время.');
-      form.reset();
-      fields.forEach(field => clearFieldState(field));
+      const formData = new FormData(form);
+      formData.forEach((value, key) => {
+        if (typeof value === 'string') {
+          formData.set(key, value.trim());
+        }
+      });
+
+      if (fileField) {
+        const fileInput = form.querySelector(`input[name="${fileField}"]`);
+        const file = fileInput?.files?.[0] || null;
+        if (file) {
+          const extension = (file.name.split('.').pop() || '').toLowerCase();
+          const type = file.type || '';
+          const isExtensionAllowed = allowedExtensions.length === 0 || allowedExtensions.includes(extension);
+          const isMimeAllowed = allowedMime.length === 0 || (type && allowedMime.includes(type));
+          if (!isExtensionAllowed && !isMimeAllowed) {
+            notify('Допустимы файлы PDF или DOCX.');
+            return;
+          }
+          if (file.size > DEFAULT_MAX_FILE_SIZE) {
+            notify('Файл должен быть не больше 2 МБ.');
+            return;
+          }
+        }
+      }
+
+      const requestInit = typeof serialize === 'function'
+        ? serialize(formData)
+        : {
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(
+              Object.fromEntries(
+                Array.from(formData.entries()).filter(([, value]) => !(value instanceof File)),
+              ),
+            ),
+          };
+
+      try {
+        const response = await fetch(endpoint, { method: 'POST', ...requestInit });
+        let result = null;
+        try {
+          result = await response.json();
+        } catch {
+          // ignore empty responses
+        }
+
+        if (response.ok && (result?.ok ?? true)) {
+          notify(successMessage);
+          form.reset();
+          fields.forEach(field => clearFieldState(field));
+          if (fileField) {
+            const fileInput = form.querySelector(`input[name="${fileField}"]`);
+            if (fileInput) {
+              fileInput.value = '';
+            }
+          }
+        } else {
+          const detail = result?.detail || response.statusText || 'Не удалось отправить форму. Попробуйте позже.';
+          notify(`Ошибка: ${detail}`);
+        }
+      } catch (error) {
+        console.error('Form submission failed', error);
+        notify('Сетевая ошибка. Проверьте соединение и попробуйте снова.');
+      }
     });
 
     form.addEventListener('input', event => {
