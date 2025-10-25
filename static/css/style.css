@@ -738,6 +738,7 @@ body.theme-light .btn--ghost:focus-visible {
   justify-content: center;
 }
 
+/* === КАРУСЕЛЬ — обновлённый стеклянный стиль без стыков === */
 .services-carousel {
   position: relative;
   margin-top: clamp(1.8rem, 5vw, 2.8rem);
@@ -745,35 +746,20 @@ body.theme-light .btn--ghost:focus-visible {
   padding-block: clamp(1.2rem, 3vw, 1.8rem);
   --carousel-gap: clamp(0.4rem, 1.1vw, 1rem);
   --carousel-visible: 2;
-  background: linear-gradient(140deg, rgba(8, 10, 18, 0.94), rgba(14, 16, 24, 0.88));
-  border: 1px solid rgba(92, 140, 255, 0.12);
+
+  /* новый фон — полупрозрачный + blur, без конфликтов с фоном страницы */
+  background: rgba(10, 12, 20, 0.42);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: clamp(1.4rem, 3vw, 2rem);
-  box-shadow: 0 38px 110px rgba(0, 0, 0, 0.48);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
   overflow: hidden;
 }
 
-.services-carousel::before {
-  content: "";
-  position: absolute;
-  inset: 2px;
-  border-radius: inherit;
-  background:
-    radial-gradient(140% 120% at 18% 12%, rgba(74, 115, 255, 0.12) 0%, transparent 55%),
-    radial-gradient(120% 140% at 82% 84%, rgba(28, 216, 255, 0.14) 0%, transparent 60%);
-  opacity: 0.35;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  z-index: 0;
-}
-
+/* отключаем псевдо-элементы, которые давали «стыки» и жёсткое свечение */
+.services-carousel::before,
 .services-carousel::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  pointer-events: none;
-  z-index: 1;
+  display: none;
 }
 
 .services-carousel > * {
@@ -796,11 +782,24 @@ body.theme-light .btn--ghost:focus-visible {
   will-change: transform;
 }
 
+/* карточки внутри карусели — чуть прозрачные, чтобы вписаться в фон */
 .services-carousel .card--service {
   flex: 0 0 calc((100% - var(--carousel-gap) * (var(--carousel-visible) - 1)) / var(--carousel-visible));
   max-width: calc((100% - var(--carousel-gap) * (var(--carousel-visible) - 1)) / var(--carousel-visible));
+  background: rgba(20, 24, 35, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
+.services-carousel .card--service:hover {
+  transform: translateY(-4px);
+  border-color: rgba(92, 140, 255, 0.35);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.4);
+}
+
+/* стрелки — лаконичный «glass» */
 .carousel__control {
   position: absolute;
   top: 50%;
@@ -811,11 +810,12 @@ body.theme-light .btn--ghost:focus-visible {
   width: clamp(34px, 3.6vw, 46px);
   height: clamp(34px, 3.6vw, 46px);
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.32);
-  background: rgba(15, 18, 26, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
   color: var(--text);
   transition: var(--transition);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.42);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
   z-index: 2;
 }
 
@@ -835,15 +835,27 @@ body.theme-light .btn--ghost:focus-visible {
 .carousel__control:hover,
 .carousel__control:focus-visible {
   color: var(--accent-secondary);
-  border-color: var(--accent);
+  border-color: rgba(92, 140, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
   outline: none;
+}
+
+/* светлая тема — сохраняем «стекло» */
+body.theme-light .services-carousel {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(60, 100, 255, 0.12);
+  box-shadow: 0 18px 42px rgba(65, 87, 142, 0.18);
+}
+
+body.theme-light .services-carousel .card--service {
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(60,100,255,0.12);
 }
 
 @media (min-width: 72em) {
   .services-carousel {
     --carousel-visible: 3;
   }
-
 }
 
 @media (max-width: 48em) {
@@ -859,6 +871,8 @@ body.theme-light .btn--ghost:focus-visible {
     right: clamp(0.15rem, 2vw, 0.8rem);
   }
 }
+
+
 
 .applicants {
   display: grid;
@@ -1535,4 +1549,75 @@ select.input:focus-visible {
 .card--tool h3,
 .card--advantage h3 {
   font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.45rem);
+}
+
+/* === FINAL FIX: вернуть слайды и порядок слоёв === */
+
+/* 0) На всякий — базовая геометрия трека (ничего абсолютного) */
+.carousel__track {
+  display: flex;
+  align-items: stretch;
+  gap: var(--carousel-gap);
+  will-change: transform;
+  transform: translate3d(0,0,0);
+  contain: none !important;      /* ← убираем contain, он ломал измерения */
+}
+
+/* 1) Карточки — без contain и без собственных слоёв */
+.services-carousel .card--service {
+  position: relative;
+  z-index: auto !important;
+  contain: none !important;      /* ← убираем, чтобы не съедался размер */
+  backdrop-filter: none;         /* оставляем быстрым */
+  background: rgba(20,24,35,0.60);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.34);
+}
+
+/* 2) Не задаём общий z-index всем детям контейнера */
+.services-carousel > * {
+  position: relative;
+  z-index: auto !important;
+}
+
+/* 3) Явно: трек/вьюпорт над фоном, стрелки выше всех */
+.services-carousel .carousel__viewport {
+  z-index: 2 !important;
+  overflow: hidden;
+}
+
+.services-carousel .carousel__control {
+  z-index: 10 !important;        /* стрелки поверх карточек */
+  pointer-events: auto;
+}
+
+/* 4) Контейнер остаётся «стеклянным», но не перекрывает детей */
+.services-carousel {
+  backdrop-filter: blur(10px);
+}
+
+/* === FIX: стрелки поверх и на своих местах === */
+.services-carousel > .carousel__control {
+  position: absolute !important;  /* перекрываем .services-carousel > * */
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 20 !important;         /* выше карточек и вьюпорта */
+  pointer-events: auto;
+}
+
+/* левая — слева */
+.services-carousel > .carousel__control--prev {
+  left: clamp(0.35rem, 1.6vw, 1.2rem) !important;
+  right: auto !important;
+}
+
+/* правая — справа */
+.services-carousel > .carousel__control--next {
+  right: clamp(0.35rem, 1.6vw, 1.2rem) !important;
+  left: auto !important;
+}
+
+/* вьюпорт ниже стрелок, чтобы не перекрывал */
+.services-carousel > .carousel__viewport {
+  position: relative;
+  z-index: 2 !important;
 }
