@@ -1,12 +1,14 @@
 [project]
 name = "uart"
 version = "0.1.0"
-description = "Add your description here"
+description = "Backend on FastAPI, uart"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "dotenv>=0.9.9",
     "fastapi>=0.119.1",
+    "pydantic[email]>=2.12.3",
     "pymysql>=1.1.2",
-    "uvicorn>=0.38.0",
+    "sqlalchemy>=2.0.44",
+    "uvicorn[standard]>=0.38.0",
 ]
