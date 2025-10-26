@@ -331,6 +331,45 @@ body.theme-light .nav-close:focus-visible {
   border-color: rgba(92, 140, 255, 0.45);
 }
 
+body.theme-light .site-nav {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(60, 100, 255, 0.18);
+  box-shadow: 0 26px 48px rgba(65, 87, 142, 0.22);
+}
+
+body.theme-light .site-nav__brand {
+  border-bottom-color: rgba(60, 100, 255, 0.15);
+}
+
+body.theme-light .site-nav__icon {
+  background: rgba(125, 157, 255, 0.18);
+  color: rgba(60, 100, 255, 0.9);
+}
+
+body.theme-light .site-nav__list a:hover .site-nav__icon,
+body.theme-light .site-nav__list a:focus-visible .site-nav__icon {
+  background: rgba(60, 100, 255, 0.24);
+  color: var(--accent);
+}
+
+body.theme-light .site-nav__cta {
+  border-top-color: rgba(60, 100, 255, 0.2);
+}
+
+body.theme-light .site-nav__item + .site-nav__item {
+  border-top-color: rgba(60, 100, 255, 0.12);
+}
+
+
+body.theme-light .site-nav__link {
+  color: rgba(60, 100, 255, 0.85);
+}
+
+body.theme-light .site-nav__link:hover,
+body.theme-light .site-nav__link:focus-visible {
+  color: var(--accent);
+}
+
 body.theme-light .btn {
   border: 1px solid rgba(60, 100, 255, 0.2);
   background: rgba(60, 100, 255, 0.12);
@@ -450,6 +489,30 @@ body.theme-light .btn--ghost:focus-visible {
   transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
 }
 
+.site-nav__body {
+  display: grid;
+  gap: clamp(1.1rem, 3vw, 1.6rem);
+}
+
+.site-nav__brand {
+  display: grid;
+  gap: 0.35rem;
+  padding-bottom: clamp(0.85rem, 2.4vw, 1rem);
+  border-bottom: 1px solid rgba(92, 140, 255, 0.18);
+}
+
+.site-nav__label {
+  font-size: clamp(0.75rem, 0.7rem + 0.2vw, 0.85rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-secondary);
+}
+
+.site-nav__hint {
+  font-size: clamp(0.85rem, 0.8rem + 0.15vw, 0.95rem);
+  color: var(--text-muted);
+}
+
 .site-nav.is-open {
   opacity: 1;
   visibility: visible;
@@ -464,8 +527,13 @@ body.theme-light .btn--ghost:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: clamp(0.85rem, 0.7rem + 1vw, 1.35rem);
+  gap: clamp(0.6rem, 0.45rem + 1vw, 1.1rem);
   font-weight: 600;
+}
+
+.site-nav__item + .site-nav__item {
+  border-top: 1px solid rgba(92, 140, 255, 0.12);
+  padding-top: clamp(0.4rem, 0.35rem + 1vw, 0.9rem);
 }
 
 .site-nav__item {
@@ -478,9 +546,9 @@ body.theme-light .btn--ghost:focus-visible {
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  gap: 0.35rem;
-  padding: 0.25rem 0;
-  transition: color var(--transition);
+  gap: 0.5rem;
+  padding-block: clamp(0.45rem, 0.35rem + 0.8vw, 0.75rem);
+  transition: color var(--transition), transform var(--transition);
 }
 
 .site-nav__list a::after {
@@ -495,9 +563,53 @@ body.theme-light .btn--ghost:focus-visible {
   transition: transform var(--transition);
 }
 
+.site-nav__text {
+  font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+}
+
+.site-nav__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 999px;
+  background: rgba(92, 140, 255, 0.18);
+  color: var(--accent-secondary);
+  font-size: 0.9rem;
+  transition: background var(--transition), transform var(--transition), color var(--transition);
+}
+
 .site-nav__list a:hover::after,
 .site-nav__list a:focus-visible::after {
   transform: scaleX(1);
+}
+
+.site-nav__list a:hover .site-nav__icon,
+.site-nav__list a:focus-visible .site-nav__icon {
+  background: rgba(92, 140, 255, 0.28);
+  color: var(--accent);
+  transform: translateX(2px);
+}
+
+.site-nav__cta {
+  margin-top: clamp(0.6rem, 1.8vw, 1rem);
+  padding-top: clamp(0.85rem, 2.4vw, 1.1rem);
+  border-top: 1px solid rgba(92, 140, 255, 0.16);
+  display: grid;
+  gap: 0.6rem;
+}
+
+.site-nav__link {
+  font-weight: 600;
+  color: var(--accent-secondary);
+  text-align: center;
+  transition: color var(--transition);
+}
+
+.site-nav__link:hover,
+.site-nav__link:focus-visible {
+  color: var(--accent);
 }
 
 /* Buttons use fluid sizing so they stay tappable on phones */
@@ -1581,7 +1693,7 @@ select.input:focus-visible {
     display: none !important;
   }
 
-   .site-nav {
+  .site-nav {
     position: static;
     top: auto;
     inset-inline: auto;
@@ -1604,10 +1716,24 @@ select.input:focus-visible {
     transform: none;
   }
 
+  .site-nav__body {
+    display: contents;
+  }
+
+  .site-nav__brand,
+  .site-nav__cta {
+    display: none;
+  }
+
   .site-nav__list {
     flex-direction: row;
     align-items: center;
     gap: clamp(1.4rem, 1rem + 1vw, 2.4rem);
+  }
+
+  .site-nav__item + .site-nav__item {
+    border-top: 0;
+    padding-top: 0;
   }
 
   .site-nav__item {
@@ -1618,6 +1744,10 @@ select.input:focus-visible {
     width: auto;
     justify-content: center;
     padding: 0.35rem 0;
+  }
+
+  .site-nav__icon {
+    display: none;
   }
 
   .site-nav__list a::after {
@@ -1724,6 +1854,7 @@ select.input:focus-visible {
   position: relative;
   z-index: 2 !important;
 }
+
 
 
 
