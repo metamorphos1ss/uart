@@ -1721,8 +1721,12 @@ select.input:focus-visible {
   }
 
   .site-nav__brand,
-  .site-nav__cta {
-    display: none;
+  .site-nav__label,
+  .site-nav__hint,
+  .site-nav__cta,
+  .site-nav__icon,
+  .site-nav__link {
+    display: none !important;
   }
 
   .site-nav__list {
