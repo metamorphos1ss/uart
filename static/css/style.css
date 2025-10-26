@@ -527,13 +527,13 @@ body.theme-light .btn--ghost:focus-visible {
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
-    padding: clamp(1.25rem, 1rem + 2vw, 1.75rem);
+    padding: clamp(1rem, 0.85rem + 1.6vw, 1.4rem);
     background: var(--surface-strong);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
-    max-height: min(80vh, 32rem);
-    overflow-y: auto;
+    max-height: none;
+    overflow: visible;
     z-index: 100;
     opacity: 0;
     visibility: hidden;
@@ -576,29 +576,38 @@ body.theme-light .btn--ghost:focus-visible {
   }
 
   .site-nav__list {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: clamp(0.6rem, 0.45rem + 1vw, 1.1rem);
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: clamp(0.5rem, 0.45rem + 0.8vw, 0.9rem);
+    row-gap: clamp(0.65rem, 0.5rem + 1vw, 1.1rem);
+    align-items: stretch;
+    justify-items: stretch;
   }
 
   .site-nav__item {
     width: 100%;
+    display: flex;
   }
 
   .site-nav__item + .site-nav__item {
-    border-top: 1px solid rgba(92, 140, 255, 0.12);
-    padding-top: clamp(0.4rem, 0.35rem + 1vw, 0.9rem);
+    border-top: 0;
+    padding-top: 0;
   }
 
   .site-nav__list a {
     width: 100%;
     justify-content: space-between;
-    gap: 0.5rem;
-    padding-block: clamp(0.45rem, 0.35rem + 0.8vw, 0.75rem);
+    gap: 0.45rem;
+    padding-block: clamp(0.4rem, 0.32rem + 0.6vw, 0.7rem);
+    padding-inline: clamp(0.75rem, 0.6rem + 1vw, 1.15rem);
+    border: 1px solid rgba(92, 140, 255, 0.16);
+    border-radius: var(--radius-sm);
+    background: rgba(0, 82, 255, 0.08);
   }
 
   .site-nav__list a::after {
-    bottom: -0.35rem;
+    display: none;
   }
 
   .site-nav__icon {
@@ -624,8 +633,8 @@ body.theme-light .btn--ghost:focus-visible {
   .site-nav__cta {
     display: grid;
     gap: 0.6rem;
-    margin-top: clamp(0.6rem, 1.8vw, 1rem);
-    padding-top: clamp(0.85rem, 2.4vw, 1.1rem);
+    margin-top: clamp(0.45rem, 1.2vw, 0.8rem);
+    padding-top: clamp(0.7rem, 2vw, 1rem);
     border-top: 1px solid rgba(92, 140, 255, 0.16);
   }
 
@@ -1481,12 +1490,12 @@ body.theme-light .lightbox__close:focus-visible {
   font-size: 0.85rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(114, 231, 255, 0.85);
+  color: var(--accent);
   margin-bottom: 0.25rem;
 }
 
 body.theme-light .contact-label {
-  color: rgba(60, 100, 255, 0.78);
+  color: var(--accent);
 }
 
 .contacts__form {
