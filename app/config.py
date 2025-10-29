@@ -21,4 +21,9 @@ UPLOAD_ROOT: str = _getenv(
     "/srv/uart/uploads/resume"
 )
 
-print(UPLOAD_ROOT)
+
+TOKEN: str = _getenv(
+    "TOKEN",
+    "None"
+)
+print(TOKEN)

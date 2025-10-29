@@ -20,5 +20,5 @@ document.addEventListener('DOMContentLoaded', () => {
   setYear('year');
 
   initFeedbackForm('#heroForm', '#contactCall');
-  initApplicantsForm('#applicantsForm');
+  initApplicantsForm('#applicantsForm', '#contactCall');
 });
