@@ -3,11 +3,21 @@ import { notify, normalizePhone, validateRequired, clearError, postMultipart } f
 const MAX_MB = 5;
 const MAX_BYTES = MAX_MB * 1024 * 1024;
 
-export function initApplicantsForm(selector) {
-  const form = document.querySelector(selector);
+export function initApplicantsForm(formSelector, callBtnSelector) {
+  const form = document.querySelector(formSelector);
   if (!form) return;
 
+  const callBtn = document.querySelector(callBtnSelector);
   const required = Array.from(form.querySelectorAll('[required]'));
+
+  let clickOnCall = false;
+
+  if (callBtn) {
+    callBtn.addEventListener('click', () => {
+      clickOnCall = true;
+      form.requestSubmit();
+    });
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -19,30 +29,39 @@ export function initApplicantsForm(selector) {
     const fd = new FormData(form);
     const name = String(fd.get('name') || '').trim();
     const phone = normalizePhone(fd.get('phone') || '');
-    const experience = String(fd.get('experience') || '').trim();
+    const message = String(fd.get('message') || '').trim();
     const file = fd.get('resume');
-    if (!fd.has('call_me')) fd.set('call_me', '0');
+    
+    const call_me = !!clickOnCall
 
-    if (!phone || phone.replace(/[^\d]/g,'').length < 10) return notify('Укажите корректный телефон');
+    if (!phone || phone.replace(/[^\d]/g,'').length < 10) {
+      notify('Укажите корректный телефон')
+      clickOnCall = true;
+      return;
+    }
+      
     if (!(file instanceof File)) return notify('Прикрепите PDF-файл');
     if (file.type && file.type !== 'application/pdf') return notify('Файл должен быть PDF');
     if (file.size > MAX_BYTES) return notify(`Файл больше ${MAX_MB} МБ`);
 
     fd.set('name', name);
     fd.set('phone', phone);
-    fd.set('experience', experience);
+    fd.set('message', message);
 
     try {
       const res = await postMultipart('/api/submit_applicants', fd);
       const json = await res.json().catch(() => ({}));
       if (res.ok && (json?.ok ?? true)) {
         notify('Анкета отправлена! Свяжемся в рабочее время.');
-        form.reset(); required.forEach(clearError);
+        form.reset();
+        required.forEach(clearError);
       } else {
         notify('Ошибка: ' + (json?.detail || res.statusText || 'unknown'));
       }
     } catch (err) {
       console.error(err); notify('Сетевая ошибка. Попробуйте ещё раз.');
+    } finally {
+      clickOnCall = false;
     }
   });
 
