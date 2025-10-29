@@ -11,9 +11,8 @@ export function initFeedbackForm(formSelector) {
     e.preventDefault();
     if (busy) return;
 
-    // какая кнопка жала сабмит
-    const submitter = e.submitter; // <-- вот она
-    const call_me = submitter?.dataset?.call === '1';
+    const submitter = e.submitter;
+    const call_me = submitter?.dataset?.call === 1 ? 1 : 0;
 
     // валидация
     let firstBad = null;
