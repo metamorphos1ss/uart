@@ -12,7 +12,7 @@ export function initFeedbackForm(formSelector) {
     if (busy) return;
 
     const submitter = e.submitter;
-    const call_me = submitter?.dataset?.call === '1' ? 1 : 0;
+    const call_me = submitter?.dataset?.call === 1 ? 1 : 0;
 
     // валидация
     let firstBad = null;
