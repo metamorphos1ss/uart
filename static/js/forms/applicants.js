@@ -17,11 +17,13 @@ export function initApplicantsForm(formSelector) {
     required.forEach(f => { if (!validateRequired(f) && !firstBad) firstBad = f; });
     if (firstBad) { firstBad.focus({ preventScroll:false }); firstBad.reportValidity(); return; }
 
-    const fd = new FormData(form);
+    const fd = new FormData(form, e.submitter);
     const name = String(fd.get('name') || '').trim();
     const phone = normalizePhone(fd.get('phone') || '');
     const message = String(fd.get('message') || '').trim();
     const file = fd.get('resume');
+    const callMe = fd.get('call_me') === '1' ? 1 : 0;
+    fd.set('call_me', String(callMe));
     
     if (!phone || phone.replace(/[^\d]/g,'').length < 10) {
       notify('Укажите корректный телефон')
