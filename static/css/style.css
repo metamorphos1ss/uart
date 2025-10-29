@@ -803,6 +803,19 @@ body.theme-light .btn--ghost:focus-visible {
 
 .hero__form {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  margin-inline: auto;
+}
+
+.hero__form .form {
+  width: min(100%, 420px);
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(1.2rem, 4vw, 1.8rem);
+  justify-items: stretch;
 }
 
 .card {
@@ -1935,6 +1948,39 @@ select.input:focus-visible {
 .services-carousel > .carousel__viewport {
   position: relative;
   z-index: 2 !important;
+}
+
+/* === FIX: центрирование форм и контента внутри === */
+.hero__form,
+.applicants__form {
+  display: flex;                 /* безопасно дублируем */
+  justify-content: center;       /* центрируем обёртку формы */
+  align-items: stretch;
+}
+
+.hero__form .form,
+.applicants-form {
+  width: min(100%, 420px);
+  margin-inline: auto;           /* Жёстко по центру */
+  justify-items: stretch;
+}
+
+.form .field,
+.form .input,
+.form .textarea,
+.form select.input {
+  width: 100%;
+}
+
+.form__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-content: center;       /* кнопки не прилипают вправо */
+  gap: 0.8rem;
+}
+
+.form__note {
+  text-align: left;              /* читается аккуратно, не "пляшет" */
 }
 
 
