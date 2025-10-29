@@ -31,7 +31,7 @@ export function initApplicantsForm(formSelector) {
     }
       
     if (!(file instanceof File)) return notify('Прикрепите PDF-файл');
-    if (file.type && file.type !== 'application/pdf') return notify('Файл должен быть PDF');
+    if (file.type && file.type !== 'application/pdf' && file.type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') return notify('Файл должен быть PDF или DOCX');
     if (file.size > MAX_BYTES) return notify(`Файл больше ${MAX_MB} МБ`);
 
     fd.set('name', name);

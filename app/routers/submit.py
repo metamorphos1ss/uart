@@ -5,6 +5,7 @@ from datetime import datetime
 from pathlib import Path
 import hashlib
 from sqlalchemy import text
+import zipfile
 
 from ..db import db_conn
 from ..config import UPLOAD_ROOT, MAX_BODY_BYTES
@@ -59,25 +60,56 @@ def submit(payload: SubmissionFeedback):
 def _ensure_dir(p: Path) -> None:
     p.mkdir(parents=True, exist_ok=True)
 
-def _save_pdf(dst: Path, upload: UploadFile) -> tuple[int, str]:
+def _save_resume(dst_base: Path, upload: UploadFile) -> tuple[int, str, str, Path]:
     sha = hashlib.sha256()
     size = 0
-    first = True
-    with dst.open("wb") as file:
-        while True:
-            chunk = upload.file.read(512*1024)
-            if not chunk:
-                break
-            if first:
-                if not chunk.startswith(b"%PDF-"):
-                    raise HTTPException(status_code=413, detail='resume must be pdf')
-                first = False
-            size += len(chunk)
+
+    first_chunk = upload.file.read(512 * 1024)
+    if not first_chunk:
+        raise HTTPException(status_code=422, detail="empty file")
+
+    is_pdf = first_chunk.startswith(b"%PDF-")
+    is_zip = first_chunk.startswith(b"PK\x03\x04")
+
+    if not (is_pdf or is_zip):
+        raise HTTPException(status_code=415, detail='resume must be PDF or DOCX')
+
+    ext = ".pdf" if is_pdf else ".docx"
+    mime = "application/pdf" if is_pdf else "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    dst = dst_base.with_suffix(ext)
+
+    try:
+        with dst.open("wb") as f:
+            size += len(first_chunk)
             if size > MAX_BODY_BYTES:
-                raise HTTPException(status_code=413, detail=f'file too large (>{MAX_BODY_BYTES/1024/1024}MB)')
-            sha.update(chunk)
-            file.write(chunk)
-    return size, sha.hexdigest()
+                raise HTTPException(status_code=413, detail=f"file too large (>{MAX_BODY_BYTES/1024/1024}MB)")
+            sha.update(first_chunk)
+            f.write(first_chunk)
+
+            while True:
+                chunk = upload.file.read(512*1024)
+                if not chunk:
+                    break
+                size += len(chunk)
+                if size > MAX_BODY_BYTES:
+                    raise HTTPException(status_code=413, detail=f'file too large (>{MAX_BODY_BYTES/1024/1024}MB)')
+                sha.update(chunk)
+                f.write(chunk)
+    finally:
+        upload.file.close()
+
+    if is_zip:
+        try:
+            with zipfile.ZipFile(dst) as zf:
+                if "word/document.xml" not in zf.namelist():
+                    dst.unlink(missing_ok=True)
+                    raise HTTPException(status_code=415, detail='resume must be PDF or DOCX')
+        except HTTPException:
+            raise
+        except Exception:
+            dst.unlink(missing_ok=True)
+            raise HTTPException(status_code=415, detail="resume must be PDF or DOCX")
+    return size, sha.hexdigest(), mime, dst
 
 @router.post("/submit_applicants")
 def submit_applicants(
@@ -93,19 +125,16 @@ def submit_applicants(
         raise HTTPException(status_code=422, detail='invalid name')
     if not (5 <= len(phone) <= 32):
         raise HTTPException(status_code=422, detail='inalid phone')
-    if resume.content_type not in ('application/pdf', "application/octet-stream"):
-        raise HTTPException(status_code=415, detail='resume must be PDF')
+    if resume.content_type not in ('application/pdf', "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/octet-stream", "application/zip"):
+        raise HTTPException(status_code=415, detail='resume must be PDF or DOCX')
     
-    
-    subdir = f'{UPLOAD_ROOT}/{datetime.utcnow():%Y}/{datetime.utcnow():%m}'
+    now = datetime.utcnow()
+    subdir = UPLOAD_ROOT / f"{now:%Y}" / f"{now:%m}" #type: ignore
     _ensure_dir(Path(subdir))
-    filename = f"{uuid4().hex}.pdf"
-    dst = Path(f'{subdir}/{filename}')
 
-    try:
-        size_bytes, sha256 = _save_pdf(dst, resume)
-    finally:
-        resume.file.close()
+
+    base = subdir / uuid4().hex #type: ignore
+    size_bytes, sha256, mime_type, dst = _save_resume(base, resume)
 
     try:
         with db_conn() as conn:
@@ -125,7 +154,7 @@ def submit_applicants(
                     "call_me": 1 if call_me else 0,
                     "resume_path": str(dst),
                     "original_name": (resume.filename or "")[:255],
-                    "mime_type": "application/pdf",
+                    "mime_type": mime_type,
                     "size_bytes": size_bytes,
                     "sha256": sha256
                 },
