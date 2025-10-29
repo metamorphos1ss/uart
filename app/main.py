@@ -4,6 +4,7 @@ from fastapi.responses import HTMLResponse, FileResponse
 
 from .db import init_db
 from .middleware.body_limit import BodySizeLimitMiddleware
+from .middleware.cooldown_limit import CooldownMiddleware
 
 from .routers.health import router as health_router
 from .routers.submit import router as submit_router
@@ -19,6 +20,7 @@ def root():
 
 #middlewares
 app.add_middleware(BodySizeLimitMiddleware)
+app.add_middleware(CooldownMiddleware)
 
 
 #routers
