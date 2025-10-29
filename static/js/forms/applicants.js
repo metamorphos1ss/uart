@@ -32,10 +32,11 @@ export function initApplicantsForm(formSelector) {
     if (file.type && file.type !== 'application/pdf') return notify('Файл должен быть PDF');
     if (file.size > MAX_BYTES) return notify(`Файл больше ${MAX_MB} МБ`);
 
+    // финальный payload
     fd.set('name', name);
     fd.set('phone', phone);
     fd.set('message', message);
-    fd.set('call_me', call_me ? 1 : 0);
+    fd.set('call_me', call_me ? '1' : '0');
 
     busy = true; toggleButtons(true);
     try {
