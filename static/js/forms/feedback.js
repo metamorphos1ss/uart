@@ -5,7 +5,7 @@ export function initFeedbackForm(formSelector, callBtnSelector) {
   const form = document.querySelector(formSelector);
   if (!form) return;
 
-  const callBtn = document.querySelector(callBtnSelector);
+  const callBtn = form.querySelector(callBtnSelector);
   const required = Array.from(form.querySelectorAll('[required]'));
 
   let clickOnCall = false;
