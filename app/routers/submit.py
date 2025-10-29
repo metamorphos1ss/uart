@@ -82,7 +82,7 @@ def submit_applicants(
         raise HTTPException(status_code=415, detail='resume must be PDF')
     
 
-    subdir = f'{UPLOAD_ROOT}/f"{datetime.utcnow():%Y}"/f"{datetime.utcnow():%m}"'
+    subdir = f'{UPLOAD_ROOT}/{datetime.utcnow():%Y}/{datetime.utcnow():%m}'
     _ensure_dir(Path(subdir))
     filename = f"{uuid4().hex}.pdf"
     dst = Path(f'{subdir}/{filename}')
