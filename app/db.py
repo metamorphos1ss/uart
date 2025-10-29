@@ -60,7 +60,7 @@ def init_db() -> None:
 
     with engine.begin() as conn:
         conn.execute(text(create_feedback))
-        # conn.execute(text(create_applicants))
+        conn.execute(text(create_applicants))
 
 @contextmanager
 def db_conn():
