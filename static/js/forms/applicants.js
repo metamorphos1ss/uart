@@ -3,24 +3,19 @@ import { notify, normalizePhone, validateRequired, clearError, postMultipart } f
 const MAX_MB = 5;
 const MAX_BYTES = MAX_MB * 1024 * 1024;
 
-export function initApplicantsForm(formSelector, callBtnSelector) {
+export function initApplicantsForm(formSelector) {
   const form = document.querySelector(formSelector);
   if (!form) return;
 
-  const callBtn = form.querySelector(callBtnSelector);
   const required = Array.from(form.querySelectorAll('[required]'));
-
-  let clickOnCall = false;
-
-  if (callBtn) {
-    callBtn.addEventListener('click', () => {
-      clickOnCall = true;
-      form.requestSubmit();
-    });
-  }
+  let busy = false;
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (busy) return;
+
+    const submitter = e.submitter;
+    const call_me = submitter?.dataset?.call === '1';
 
     let firstBad = null;
     required.forEach(f => { if (!validateRequired(f) && !firstBad) firstBad = f; });
@@ -31,37 +26,32 @@ export function initApplicantsForm(formSelector, callBtnSelector) {
     const phone = normalizePhone(fd.get('phone') || '');
     const message = String(fd.get('message') || '').trim();
     const file = fd.get('resume');
-    
-    const call_me = !!clickOnCall
 
-    if (!phone || phone.replace(/[^\d]/g,'').length < 10) {
-      notify('Укажите корректный телефон')
-      clickOnCall = true;
-      return;
-    }
-      
+    if (!phone || phone.replace(/[^\d]/g,'').length < 10) return notify('Укажите корректный телефон');
     if (!(file instanceof File)) return notify('Прикрепите PDF-файл');
     if (file.type && file.type !== 'application/pdf') return notify('Файл должен быть PDF');
     if (file.size > MAX_BYTES) return notify(`Файл больше ${MAX_MB} МБ`);
 
+    // финальный payload
     fd.set('name', name);
     fd.set('phone', phone);
     fd.set('message', message);
+    fd.set('call_me', call_me ? '1' : '0');
 
+    busy = true; toggleButtons(true);
     try {
       const res = await postMultipart('/api/submit_applicants', fd);
       const json = await res.json().catch(() => ({}));
       if (res.ok && (json?.ok ?? true)) {
         notify('Анкета отправлена! Свяжемся в рабочее время.');
-        form.reset();
-        required.forEach(clearError);
+        form.reset(); required.forEach(clearError);
       } else {
         notify('Ошибка: ' + (json?.detail || res.statusText || 'unknown'));
       }
     } catch (err) {
       console.error(err); notify('Сетевая ошибка. Попробуйте ещё раз.');
     } finally {
-      clickOnCall = false;
+      busy = false; toggleButtons(false);
     }
   });
 
@@ -71,4 +61,8 @@ export function initApplicantsForm(formSelector, callBtnSelector) {
       validateRequired(t);
     }
   });
+
+  function toggleButtons(state) {
+    form.querySelectorAll('button').forEach(b => b.disabled = state);
+  }
 }
