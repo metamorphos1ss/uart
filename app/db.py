@@ -14,12 +14,14 @@ engine: Engine = create_engine(
 
 def init_db() -> None:
     create_str = """
-    CREATE TABLE IF NOT EXISTS form_submissions (
+    CREATE TABLE IF NOT EXISTS submission_feeback(
         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
-        email VARCHAR(255) NOT NULL,
+        phone VARCHAR(255) NOT NULL,
         message TEXT,
-        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        call_me TINYINT(1) NOT NULL DEFAULT 0,
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_phone (phone)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         """ 
 

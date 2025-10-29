@@ -1,10 +1,22 @@
 import { notify, normalizePhone, validateRequired, clearError, postJSON } from '../utils/form.js';
 
-export function initFeedbackForm(selector) {
-  const form = document.querySelector(selector);
+
+export function initFeedbackForm(formSelector, callBtnSelector) {
+  const form = document.querySelector(formSelector);
   if (!form) return;
 
+  const callBtn = document.querySelector(callBtnSelector);
   const required = Array.from(form.querySelectorAll('[required]'));
+
+  let clickOnCall = false;
+
+
+  if (callBtn) {
+    callBtn.addEventListener('click', () => {
+      clickOnCall = true;
+      form.requestSubmit();
+    });
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -17,21 +29,30 @@ export function initFeedbackForm(selector) {
     const name = String(fd.get('name') || '').trim();
     const phone = normalizePhone(fd.get('phone') || '');
     const message = String(fd.get('message') || '').trim();
-    const call_me = false;
 
-    if (!phone || phone.replace(/[^\d]/g,'').length < 10) return notify('Укажите корректный телефон');
+    const call_me = !!clickOnCall
+
+    if (!phone || phone.replace(/[^\d]/g,'').length < 10) {
+      notify('Укажите корретный телефон')
+      clickOnCall = true;
+      return;
+    }
 
     try {
       const res = await postJSON('/api/submit_feedback', { name, phone, message, call_me });
       const json = await res.json().catch(() => ({}));
+
       if (res.ok && (json?.ok ?? true)) {
         notify('Заявка отправлена! Мы свяжемся в рабочее время.');
-        form.reset(); required.forEach(clearError);
+        form.reset(); 
+        required.forEach(clearError);
       } else {
         notify('Ошибка: ' + (json?.detail || res.statusText || 'unknown'));
       }
     } catch (err) {
       console.error(err); notify('Сетевая ошибка. Попробуйте ещё раз.');
+    } finally {
+      clickOnCall = false;
     }
   });
 

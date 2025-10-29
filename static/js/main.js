@@ -19,6 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initTeamFallbacks();
   setYear('year');
 
-  initFeedbackForm('#heroForm');
+  initFeedbackForm('#heroForm', '#contactCall');
   initApplicantsForm('#applicantsForm');
 });
