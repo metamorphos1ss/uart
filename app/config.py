@@ -21,9 +21,16 @@ UPLOAD_ROOT: str = _getenv(
     "/srv/uart/uploads/resume"
 )
 
-
 TOKEN: str = _getenv(
     "TOKEN",
     "None"
 )
-print(TOKEN)
+
+_admin_ids = _getenv(
+    "ADMIN_IDS",
+    "None"
+)
+
+ADMIN_IDS = {int(x) for x in _admin_ids.split(',') if x.strip().isdigit()}
+
+TELEGRAM_API_BASE = f"https://api.telegram.org/bot{TOKEN}"

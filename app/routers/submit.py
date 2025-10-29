@@ -8,6 +8,7 @@ from sqlalchemy import text
 
 from ..db import db_conn
 from ..config import UPLOAD_ROOT, MAX_BODY_BYTES
+from ..telegram_notify import notify_admins, notify_admins_document, format_feedback_msg, format_applicant_msg
 
 router = APIRouter(prefix="/api", tags=["submit"])
 
@@ -23,7 +24,7 @@ class SubmissionFeedback(BaseModel):
 def submit(payload: SubmissionFeedback):
     try:
         with db_conn() as conn:
-            conn.execute(
+            res = conn.execute(
                 text("""
                      INSERT INTO submission_feedback(name, phone, message, call_me)
                      VALUES (:name, :phone, :message, :call_me)
@@ -35,7 +36,21 @@ def submit(payload: SubmissionFeedback):
                          "call_me": 1 if payload.call_me else 0,
                      }
             )
-            return {"ok": True}
+            row_id = res.lastrowid
+        try:
+            notify_admins(
+                format_feedback_msg(
+                    row_id=row_id,
+                    name=payload.name,
+                    phone=payload.phone,
+                    message=payload.message,
+                    call_me=1 if payload.call_me else 0,
+                )
+            )
+        except Exception:
+            pass
+        
+        return {"ok": True}
     except Exception as e:
         raise HTTPException(status_code=500, detail="db error")
 
@@ -81,7 +96,7 @@ def submit_applicants(
     if resume.content_type not in ('application/pdf', "application/octet-stream"):
         raise HTTPException(status_code=415, detail='resume must be PDF')
     
-
+    
     subdir = f'{UPLOAD_ROOT}/{datetime.utcnow():%Y}/{datetime.utcnow():%m}'
     _ensure_dir(Path(subdir))
     filename = f"{uuid4().hex}.pdf"
@@ -94,7 +109,7 @@ def submit_applicants(
 
     try:
         with db_conn() as conn:
-            conn.execute(
+            res = conn.execute(
                 text("""
                     INSERT INTO submission_applicants
                         (name, phone, message, call_me,
@@ -115,10 +130,28 @@ def submit_applicants(
                     "sha256": sha256
                 },
             )
-        return {"ok": True}
+            row_id = res.lastrowid
     except Exception:
         try:
             dst.unlink(missing_ok=True)
         except Exception:
             pass
         raise HTTPException(status_code=500, detail='db error')
+
+    caption = format_applicant_msg(
+        row_id=row_id,
+        name=name,
+        phone=phone,
+        message=message,
+        call_me=1 if call_me else 0,
+        original_name=(resume.filename or "resume.pdf"),
+        size_bytes=size_bytes,
+        sha256=sha256
+    )
+
+
+    try:
+        notify_admins_document(dst, caption) #type: ignore
+    except Exception:
+        pass
+    return {"ok": True}
