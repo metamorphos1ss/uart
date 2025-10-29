@@ -37,7 +37,7 @@ def init_db() -> None:
         -- файл + мета
         resume_path VARCHAR(1024) NOT NULL,
         original_name VARCHAR(255) NOT NULL,
-        mime_type VARCHAR(100) NOT NULL DEFAULT 'application/pdf'
+        mime_type VARCHAR(100) NOT NULL DEFAULT 'application/pdf',
         size_bytes BIGINT UNSIGNED NOT NULL,
         sha256 CHAR(64) NOT NULL,
         uploaded_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
