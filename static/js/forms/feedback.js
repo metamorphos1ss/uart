@@ -1,22 +1,11 @@
 import { notify, normalizePhone, validateRequired, clearError, postJSON } from '../utils/form.js';
 
 
-export function initFeedbackForm(formSelector, callBtnSelector) {
+export function initFeedbackForm(formSelector) {
   const form = document.querySelector(formSelector);
   if (!form) return;
 
-  const callBtn = document.querySelector(callBtnSelector);
   const required = Array.from(form.querySelectorAll('[required]'));
-
-  let clickOnCall = false;
-
-
-  if (callBtn) {
-    callBtn.addEventListener('click', () => {
-      clickOnCall = true;
-      form.requestSubmit();
-    });
-  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -25,12 +14,11 @@ export function initFeedbackForm(formSelector, callBtnSelector) {
     required.forEach(f => { if (!validateRequired(f) && !firstBad) firstBad = f; });
     if (firstBad) { firstBad.focus({ preventScroll:false }); firstBad.reportValidity(); return; }
 
-    const fd = new FormData(form);
+    const fd = new FormData(form, e.submitter);
     const name = String(fd.get('name') || '').trim();
     const phone = normalizePhone(fd.get('phone') || '');
     const message = String(fd.get('message') || '').trim();
-
-    const call_me = !!clickOnCall
+    const call_me = fd.get('call_me') === '1';
 
     if (!phone || phone.replace(/[^\d]/g,'').length < 10) {
       notify('Укажите корретный телефон')
