@@ -3,21 +3,12 @@ import { notify, normalizePhone, validateRequired, clearError, postMultipart } f
 const MAX_MB = 5;
 const MAX_BYTES = MAX_MB * 1024 * 1024;
 
-export function initApplicantsForm(formSelector, callBtnSelector) {
+export function initApplicantsForm(formSelector) {
   const form = document.querySelector(formSelector);
   if (!form) return;
 
-  const callBtn = document.querySelector(callBtnSelector);
   const required = Array.from(form.querySelectorAll('[required]'));
 
-  let clickOnCall = false;
-
-  if (callBtn) {
-    callBtn.addEventListener('click', () => {
-      clickOnCall = true;
-      form.requestSubmit();
-    });
-  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -32,11 +23,8 @@ export function initApplicantsForm(formSelector, callBtnSelector) {
     const message = String(fd.get('message') || '').trim();
     const file = fd.get('resume');
     
-    const call_me = !!clickOnCall
-
     if (!phone || phone.replace(/[^\d]/g,'').length < 10) {
       notify('Укажите корректный телефон')
-      clickOnCall = true;
       return;
     }
       
@@ -61,7 +49,6 @@ export function initApplicantsForm(formSelector, callBtnSelector) {
     } catch (err) {
       console.error(err); notify('Сетевая ошибка. Попробуйте ещё раз.');
     } finally {
-      clickOnCall = false;
     }
   });
 
