@@ -1,21 +1,26 @@
 import { notify, normalizePhone, validateRequired, clearError, postJSON } from '../utils/form.js';
 
-export function initFeedbackForm(formSelector) {
+
+export function initFeedbackForm(formSelector, callBtnSelector) {
   const form = document.querySelector(formSelector);
   if (!form) return;
 
+  const callBtn = form.querySelector(callBtnSelector);
   const required = Array.from(form.querySelectorAll('[required]'));
-  let busy = false;
+
+  let clickOnCall = false;
+
+
+  if (callBtn) {
+    callBtn.addEventListener('click', () => {
+      clickOnCall = true;
+      form.requestSubmit();
+    });
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (busy) return;
 
-    // какая кнопка жала сабмит
-    const submitter = e.submitter; // <-- вот она
-    const call_me = submitter?.dataset?.call === '1';
-
-    // валидация
     let firstBad = null;
     required.forEach(f => { if (!validateRequired(f) && !firstBad) firstBad = f; });
     if (firstBad) { firstBad.focus({ preventScroll:false }); firstBad.reportValidity(); return; }
@@ -25,25 +30,29 @@ export function initFeedbackForm(formSelector) {
     const phone = normalizePhone(fd.get('phone') || '');
     const message = String(fd.get('message') || '').trim();
 
+    const call_me = !!clickOnCall
+
     if (!phone || phone.replace(/[^\d]/g,'').length < 10) {
-      notify('Укажите корректный телефон');
+      notify('Укажите корретный телефон')
+      clickOnCall = true;
       return;
     }
 
-    busy = true; toggleButtons(true);
     try {
       const res = await postJSON('/api/submit_feedback', { name, phone, message, call_me });
       const json = await res.json().catch(() => ({}));
+
       if (res.ok && (json?.ok ?? true)) {
         notify('Заявка отправлена! Мы свяжемся в рабочее время.');
-        form.reset(); required.forEach(clearError);
+        form.reset(); 
+        required.forEach(clearError);
       } else {
         notify('Ошибка: ' + (json?.detail || res.statusText || 'unknown'));
       }
     } catch (err) {
       console.error(err); notify('Сетевая ошибка. Попробуйте ещё раз.');
     } finally {
-      busy = false; toggleButtons(false);
+      clickOnCall = false;
     }
   });
 
@@ -53,8 +62,4 @@ export function initFeedbackForm(formSelector) {
       validateRequired(t);
     }
   });
-
-  function toggleButtons(state) {
-    form.querySelectorAll('button').forEach(b => b.disabled = state);
-  }
 }
