@@ -50,7 +50,7 @@ def init_db() -> None:
         expires_at TIMESTAMP NULL,
         deleted_at TIMESTAMP NULL,
 
-        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         INDEX idx_phone(phone),
         INDEX idx_scan_status(scan_status),
         INDEX idx_expires(expires_at),
