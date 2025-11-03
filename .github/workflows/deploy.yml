@@ -12,8 +12,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      SSH_HOST: ${{ secrets.SSH_HOST }}
-      SSH_PORT: ${{ secrets.SSH_PORT }}
+      SSH_HOST: ${{ secrets.SSH_HOST_PROD }}
+      SSH_PORT: ${{ secrets.SSH_PORT_PROD }}
       SSH_USER: ${{ secrets.SSH_USER }}
       TARGET_DIR: ${{ secrets.TARGET_DIR }}
 
