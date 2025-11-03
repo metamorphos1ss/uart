@@ -16,7 +16,7 @@ jobs:
     env:
       SSH_HOST: ${{ secrets.SSH_HOST_DEV }}
       SSH_PORT: ${{ secrets.SSH_PORT_DEV }}
-      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_USER: ${{ secrets.SSH_USER_DEV }}
       TARGET_DIR: ${{ secrets.TARGET_DIR_DEV }}
 
     steps:
