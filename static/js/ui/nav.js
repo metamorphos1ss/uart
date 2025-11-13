@@ -1,4 +1,4 @@
-import { $id, $qsa } from '../utils/dom.js';
+﻿import { $id, $qsa } from '../utils/dom.js';
 
 export function initNav() {
   const body = document.body;
@@ -36,3 +36,4 @@ export function initNav() {
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav?.classList.contains('is-open')) { e.preventDefault(); close({ focusToggle:true }); } });
   toggle?.setAttribute('aria-expanded','false');
 }
+

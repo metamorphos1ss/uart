@@ -1,4 +1,4 @@
-export function initCarousel() {
+﻿export function initCarousel() {
   const carousels = Array.from(document.querySelectorAll('[data-carousel]'));
   carousels.forEach(carousel => {
     const viewport = carousel.querySelector('[data-carousel-viewport]');
@@ -62,3 +62,4 @@ export function initCarousel() {
     compute(); apply(index, false); window.addEventListener('resize', () => { compute(); apply(index, false); maybeWrap(); });
   });
 }
+

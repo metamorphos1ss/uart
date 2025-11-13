@@ -1,4 +1,4 @@
-export function initTeamFallbacks() {
+﻿export function initTeamFallbacks() {
   const blocks = Array.from(document.querySelectorAll('.team-card__media'));
   blocks.forEach(media => {
     const img = media.querySelector('img');
@@ -13,3 +13,4 @@ export function initTeamFallbacks() {
     check();
   });
 }
+

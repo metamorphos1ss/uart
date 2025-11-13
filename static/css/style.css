@@ -34,7 +34,21 @@
   --transition: 220ms ease;
   --container-max: 1120px;
   --header-height: clamp(64px, 8vw, 86px);
-  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-body: "InterVariable", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@font-face {
+  font-family: "InterVariable";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/static/fonts/InterVariable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "InterVariable";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/static/fonts/InterVariable-Italic.woff2") format("woff2");
 }
 
 body.theme-light {
@@ -769,6 +783,21 @@ body.theme-light .btn--ghost:focus-visible {
 .hero .lead {
   max-width: 52ch;
 }
+.hero__media {
+  align-self: center;
+}
+.hero__media picture {
+  display: block;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.hero__media img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
 
 .hero__metrics {
   list-style: none;
@@ -849,7 +878,6 @@ body.theme-light .btn--ghost:focus-visible {
   border-radius: calc(var(--radius-lg) - 8px);
   display: block;
   overflow: hidden;
-  background: none;
   background: linear-gradient(135deg, rgba(0, 82, 255, 0.26), rgba(114, 231, 255, 0.16));
   border: 1px solid rgba(114, 231, 255, 0.3);
   box-shadow: 0 20px 42px rgba(0, 0, 0, 0.45);
@@ -862,12 +890,17 @@ body.theme-light .btn--ghost:focus-visible {
   -webkit-appearance: none;
   transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
+.card__media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
 .card__media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.4) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.35) 100%);
   pointer-events: none;
 }
 
@@ -938,6 +971,10 @@ body.theme-light .card__media:focus-visible .card__media-zoom {
 
 .section {
   padding-block: clamp(3.5rem, 8vw, 5.5rem);
+}
+.section--deferred {
+  content-visibility: auto;
+  contain-intrinsic-size: 1000px;
 }
 
 .section--alt {
@@ -1419,18 +1456,27 @@ body.theme-light .team-card__list dt {
 
 .lightbox__image {
   width: 100%;
-  height: auto;
-  max-height: calc(85vh - 120px);
-  object-fit: contain;
+  display: block;
   border-radius: 18px;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  box-shadow: 0 28px 56px rgba(0, 0, 0, 0.5);
+}
+.lightbox__image-media {
+  width: 100%;
+  height: auto;
+  max-height: calc(85vh - 150px);
+  object-fit: contain;
+  display: block;
+  border-radius: inherit;
 }
 
 .lightbox__caption {
   margin: 0;
+  padding-top: 0.5rem;
   color: var(--text-muted);
   text-align: center;
   font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 .lightbox__caption[hidden] {
@@ -1579,6 +1625,14 @@ select.input:focus-visible {
 .form__actions {
   display: grid;
   gap: 0.8rem;
+}
+.form__actions--single {
+  display: flex;
+  justify-content: center;
+}
+.form__actions--single > * {
+  min-width: 220px;
+  width: auto;
 }
 
 .site-footer {
@@ -1872,6 +1926,99 @@ select.input:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+/* === Center single action button in forms === */
+.form__actions.form__actions--single {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  grid-template-columns: none; /* на случай, если выше включили grid */
+}
+
+@media (min-width: 64em) {
+  .form__actions.form__actions--single {
+    justify-content: center; /* переопределяем правила, которые тянут влево */
+  }
+}
+
+@media (max-width: 60em) {
+  .header__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .header__actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .hero__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__form {
+    order: 2;
+  }
+
+  .feature-grid,
+  .card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .team-grid {
+    width: 100%;
+  }
+
+  .team-card {
+    width: 100%;
+  }
+
+  .form.card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 40em) {
+  .header__inner {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 0.8rem;
+    padding-top: 0.2rem;
+  }
+
+  .logo {
+    order: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__actions {
+    order: 0;
+    max-width: none;
+    width: auto;
+    margin-left: auto;
+    padding-inline: 0;
+    justify-content: flex-end;
+    gap: clamp(0.6rem, 5vw, 1.2rem);
+  }
+
+  .header__actions > * {
+    flex: 0 0 auto;
+  }
+
+  .theme-toggle,
+  .nav-toggle {
+    margin-top: 0;
+  }
+
+  .site-nav {
+    top: calc(var(--header-height) + 2.2rem);
+    inset-inline: clamp(0.65rem, 7vw, 1.8rem);
+  }
+}
 .card--service h3,
 .card--case h3,
 .card--tool h3,
@@ -1982,6 +2129,7 @@ select.input:focus-visible {
 .form__note {
   text-align: left;              /* читается аккуратно, не "пляшет" */
 }
+
 
 
 

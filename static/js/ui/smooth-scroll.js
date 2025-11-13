@@ -1,4 +1,4 @@
-import { $qsa, prefersReducedMotion } from '../utils/dom.js';
+﻿import { $qsa, prefersReducedMotion } from '../utils/dom.js';
 
 export function initSmoothScroll() {
   const anchors = $qsa('a[href^="#"]');
@@ -10,3 +10,4 @@ export function initSmoothScroll() {
     e.preventDefault(); target.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block:'start' });
   }));
 }
+
