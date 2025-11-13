@@ -16,9 +16,6 @@
     <div class="container header__inner">
       <a class="logo" href="#hero" aria-label="UArt">UArt</a>
       <nav class="site-nav" id="siteNav" aria-label="Main navigation">
-        <button class="nav-close" type="button" id="navClose">
-          <span class="sr-only">Close menu</span>
-        </button>
         <div class="site-nav__body">
           <div class="site-nav__brand">
             <span class="site-nav__label">Навигация</span>
@@ -62,20 +59,16 @@
               </a>
             </li>
           </ul>
-          <div class="site-nav__cta">
-            <a class="btn btn--accent" href="#heroForm">Оставить заявку</a>
-            <a class="site-nav__link" href="tel:+79999999999">+7 (999) 999-99-99</a>
-          </div>
         </div>
       </nav>
       <div class="header__actions">
-        <div class="header__cta">
-          <a class="btn btn--accent" href="#heroForm">Оставить заявку</a>
-        </div>
         <button class="theme-toggle" type="button" id="themeToggle" aria-pressed="false" aria-label="Светлая тема" data-label-dark="Светлая тема" data-label-light="Тёмная тема">
           <span class="theme-toggle__icon" aria-hidden="true"></span>
           <span class="theme-toggle__label sr-only">Светлая тема</span>
         </button>
+        <div class="header__cta">
+          <a class="btn btn--accent" href="#heroForm">Оставить заявку</a>
+        </div>
         <button class="nav-toggle" type="button" id="navToggle" aria-controls="siteNav" aria-expanded="false">
           <span class="sr-only">Open menu</span>
           <span class="nav-toggle__bar"></span>
@@ -115,9 +108,8 @@
                 <textarea class="textarea" name="message" placeholder="Опишите задачу или вопросы" rows="3"></textarea>
               </label>
             </fieldset>
-            <div class="form__actions">
+            <div class="form__actions form__actions--single">
               <button class="btn btn--accent" type="submit" name="call_me" value="0">Отправить</button>
-              <button class="btn btn--ghost" type="submit" name="call_me" value="1">Перезвоните мне</button>
             </div>
             <p class="form__note small">Нажимая на кнопку, вы даете согласие на обработку персональных данных и
               соглашаетесь с политикой конфиденциальности согласно Федеральному закону № 152-ФЗ от 27.07.2006 «О
@@ -186,7 +178,7 @@
       </div>
     </section>
 
-    <section class="section section--alt" id="eventTypes" aria-labelledby="eventTypesTitle">
+    <section class="section section--alt" id="eventTypes" aria-labelledby="eventTypesTitle" data-lightbox-root>
       <div class="container">
         <header class="section__header section__header--tight">
           <h2 id="eventTypesTitle">Форматы событий</h2>
@@ -197,8 +189,12 @@
           <article class="card card--format">
             <button class="card__media" type="button" data-image="/static/img/cases/korporat.jpg"
               data-alt="Корпоративное событие UArt"
-              data-caption="Корпоративные события: конференции, тренинги, тимбилдинги и партнёрские мероприятия.">
-              <img src="/static/img/cases/korporat.jpg" alt="Корпоративное событие UArt" loading="lazy" />
+              data-caption="Корпоративные события: конференции, тимбилдинги и партнёрские встречи.">
+              <picture>
+                <img src="/static/img/cases/korporat.jpg" alt="Корпоративное событие UArt" loading="lazy"
+                  decoding="async" width="520" height="347" />
+              </picture>
+              
             </button>
             <div class="card__body">
               <h3>Корпоративные события</h3>
@@ -210,7 +206,11 @@
             <button class="card__media" type="button" data-image="/static/img/cases/private.PNG"
               data-alt="Частное мероприятие UArt"
               data-caption="Частные мероприятия: свадьбы, юбилеи, выпускные и семейные торжества.">
-              <img src="/static/img/cases/private.PNG" alt="Частное мероприятие UArt" loading="lazy" />
+              <picture>
+                <img src="/static/img/cases/private.PNG" alt="Частное мероприятие UArt" loading="lazy" decoding="async"
+                  width="520" height="453" />
+              </picture>
+              
             </button>
             <div class="card__body">
               <h3>Частные мероприятия</h3>
@@ -221,7 +221,11 @@
             <button class="card__media" type="button" data-image="/static/img/cases/public.jpg"
               data-alt="Публичный проект UArt"
               data-caption="Публичные проекты: фестивали, концерты, ярмарки и городские активности.">
-              <img src="/static/img/cases/public.jpg" alt="Публичный проект UArt" loading="lazy" />
+              <picture>
+                <img src="/static/img/cases/public.jpg" alt="Публичный проект UArt" loading="lazy" decoding="async"
+                  width="520" height="315" />
+              </picture>
+              
             </button>
             <div class="card__body">
               <h3>Публичные проекты</h3>
@@ -233,7 +237,7 @@
       </div>
     </section>
 
-    <section class="section" id="cases" aria-labelledby="casesTitle">
+    <section class="section" id="cases" aria-labelledby="casesTitle" data-lightbox-root>
       <div class="container">
         <header class="section__header section__header--tight">
           <h2 id="casesTitle">Примеры успешных кейсов</h2>
@@ -245,8 +249,11 @@
             <button class="card__media" type="button" data-image="/static/img/cases/dinamo.jpeg"
               data-alt="Команда UArt на домашнем матче РК «Динамо-Москва»"
               data-caption="3 года с РК «Динамо-Москва»: организация матчей, промо-акций и выставочных экспозиций клуба.">
-              <img src="/static/img/cases/dinamo.jpeg" alt="Команда UArt на домашнем матче РК «Динамо-Москва»"
-                loading="lazy" />
+              <picture>
+                <img src="/static/img/cases/dinamo.jpeg" alt="Команда UArt на домашнем матче РК «Динамо-Москва»"
+                  loading="lazy" decoding="async" width="960" height="640" />
+              </picture>
+              
             </button>
             <div class="card__body">
               <h3>3 года с РК «Динамо-Москва»</h3>
@@ -257,7 +264,11 @@
             <button class="card__media" type="button" data-image="/static/img/cases/sever.jpeg"
               data-alt="Сцена фестиваля на севере России"
               data-caption="Фестивали на севере России: общая организация, работа с молодежными организациями.">
-              <img src="/static/img/cases/sever.jpeg" alt="Сцена фестиваля на севере России" loading="lazy" />
+              <picture>
+                <img src="/static/img/cases/sever.jpeg" alt="Сцена фестиваля на севере России" loading="lazy"
+                  decoding="async" width="960" height="720" />
+              </picture>
+              
             </button>
             <div class="card__body">
               <h3>Фестивали на севере России</h3>
@@ -268,7 +279,11 @@
             <button class="card__media" type="button" data-image="/static/img/cases/leto.JPG"
               data-alt="Спортивная площадка проекта «Лето в Москве»"
               data-caption="«Лето в Москве»: монтаж демонтаж спортивных площадок, логистика.">
-              <img src="/static/img/cases/leto.JPG" alt="Спортивная площадка проекта «Лето в Москве»" loading="lazy" />
+              <picture>
+                <img src="/static/img/cases/leto.JPG" alt="Спортивная площадка проекта «Лето в Москве»" loading="lazy"
+                  decoding="async" width="960" height="720" />
+              </picture>
+              
             </button>
             <div class="card__body">
               <h3>«Лето в Москве»</h3>
@@ -279,7 +294,11 @@
             <button class="card__media" type="button" data-image="/static/img/cases/2030.JPG"
               data-alt="Интерактивная зона проекта «Москва 2030»"
               data-caption="«Москва 2030»: организация работы интерактивных площадок.">
-              <img src="/static/img/cases/2030.JPG" alt="Интерактивная зона проекта «Москва 2030»" loading="lazy" />
+              <picture>
+                <img src="/static/img/cases/2030.JPG" alt="Интерактивная зона проекта «Москва 2030»" loading="lazy"
+                  decoding="async" width="960" height="597" />
+              </picture>
+              
             </button>
             <div class="card__body">
               <h3>«Москва 2030»</h3>
@@ -290,7 +309,11 @@
             <button class="card__media" type="button" data-image="/static/img/cases/berizaryad.JPG"
               data-alt="Зона бренда на VK Fest"
               data-caption="«Бери заряд» на VK Fest: организация работы тех-промо персонала.">
-              <img src="/static/img/cases/berizaryad.JPG" alt="Зона бренда на VK Fest" loading="lazy" />
+              <picture>
+                <img src="/static/img/cases/berizaryad.JPG" alt="Зона бренда на VK Fest" loading="lazy"
+                  decoding="async" width="960" height="693" />
+              </picture>
+              
             </button>
             <div class="card__body">
               <h3>«Бери заряд» на VK Fest</h3>
@@ -301,7 +324,11 @@
             <button class="card__media" type="button" data-image="/static/img/cases/koncert.PNG"
               data-alt="Световое шоу на концерте UArt"
               data-caption="Концерты и вечеринки: разработка и реализация уникальных событий.">
-              <img src="/static/img/cases/koncert.PNG" alt="Световое шоу на концерте UArt" loading="lazy" />
+              <picture>
+                <img src="/static/img/cases/koncert.PNG" alt="Световое шоу на концерте UArt" loading="lazy"
+                  decoding="async" width="960" height="645" />
+              </picture>
+              
             </button>
             <div class="card__body">
               <h3>Концерты и вечеринки</h3>
@@ -425,9 +452,8 @@
                 <input class="input" name="resume" type="file" accept="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
               </label>
             </fieldset>
-            <div class="form__actions">
+            <div class="form__actions form__actions--single">
               <button class="btn btn--accent" type="submit" name="call_me" value="0">Отправить</button>
-              <button class="btn btn--ghost" type="submit" name="call_me" value="1">Перезвоните мне</button>
             </div>
             <p class="form__note small">Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь с политикой конфиденциальности согласно Федеральному закону № 152-ФЗ от 27.07.2006 «О персональных данных».</p>
           </form>
@@ -465,7 +491,12 @@
   <div class="lightbox" id="caseLightbox" hidden>
     <div class="lightbox__dialog" role="dialog" aria-modal="true">
       <button class="lightbox__close" type="button" id="caseLightboxClose">&times;</button>
-      <img class="lightbox__image" id="caseLightboxImage" alt="" />
+      <picture class="lightbox__image" id="caseLightboxPicture">
+        <source id="caseLightboxSourceAvif" type="image/avif" />
+        <source id="caseLightboxSourceWebp" type="image/webp" />
+        <img class="lightbox__image-media" id="caseLightboxImage" alt="" loading="lazy" decoding="async" width="1440"
+          height="960" />
+      </picture>
       <p class="lightbox__caption" id="caseLightboxCaption" hidden></p>
     </div>
   </div>
@@ -474,6 +505,8 @@
 </body>
 
 </html>
+
+
 
 
 

@@ -1,4 +1,4 @@
-import { $id } from '../utils/dom.js';
+﻿import { $id } from '../utils/dom.js';
 
 const KEY = 'uart-theme';
 
@@ -11,8 +11,8 @@ export function initTheme() {
   const read = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
   const write = (v) => { try { localStorage.setItem(KEY, v); } catch {} };
 
-  const labelText = (isLight) => isLight ? (btn?.dataset?.labelLight || 'Тёмная тема')
-                                         : (btn?.dataset?.labelDark  || 'Светлая тема');
+  const labelText = (isLight) => isLight ? (btn?.dataset?.labelLight || 'РўС‘РјРЅР°СЏ С‚РµРјР°')
+                                         : (btn?.dataset?.labelDark  || 'РЎРІРµС‚Р»Р°СЏ С‚РµРјР°');
 
   const apply = (theme) => {
     const isLight = theme === 'light';
@@ -41,3 +41,4 @@ export function initTheme() {
     apply(next); write(next);
   });
 }
+

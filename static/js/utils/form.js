@@ -1,20 +1,32 @@
-export const notify = (msg) => { try { alert(msg); } catch { console.log(msg); } };
+export const notify = (msg) => {
+  try {
+    alert(msg);
+  } catch {
+    console.log(msg);
+  }
+};
 
 export const normalizePhone = (v) => {
   const t = String(v || '').trim();
   const plus = t.startsWith('+');
   const digits = t.replace(/[^\d]/g, '');
-  return plus ? ('+' + digits) : digits;
+  return plus ? `+${digits}` : digits;
 };
+
+const REQUIRED_MESSAGE = 'Это поле обязательно для заполнения';
+const PHONE_MESSAGE = 'Введите номер телефона не короче 10 цифр';
 
 export const validateRequired = (field) => {
   const value = (field.value ?? '').trim();
   let message = '';
-  if (!value) message = 'Заполните поле';
-  else if (field.type === 'tel') {
-    const digits = value.replace(/\D/g,'');
-    if (digits.length < 10) message = 'Введите номер телефона полностью';
+
+  if (!value) {
+    message = REQUIRED_MESSAGE;
+  } else if (field.type === 'tel') {
+    const digits = value.replace(/\D/g, '');
+    if (digits.length < 10) message = PHONE_MESSAGE;
   }
+
   if (message) {
     setError(field, message);
     return false;
@@ -40,7 +52,7 @@ export const clearError = (field) => {
 export const postJSON = (url, payload) =>
   fetch(url, {
     method: 'POST',
-    headers: {'Content-Type':'application/json'},
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
 

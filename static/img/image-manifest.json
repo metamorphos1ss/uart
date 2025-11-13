@@ -1,0 +1,354 @@
+{
+  "hero/hero": {
+    "original": {
+      "width": 1179,
+      "height": 792
+    },
+    "variants": {
+      "800": {
+        "width": 800,
+        "height": 467
+      },
+      "1200": {
+        "width": 1200,
+        "height": 700
+      },
+      "1600": {
+        "width": 1600,
+        "height": 933
+      }
+    }
+  },
+  "avatars/chepiganew1": {
+    "original": {
+      "width": 2410,
+      "height": 2487
+    },
+    "variants": {
+      "240": {
+        "width": 240,
+        "height": 248
+      },
+      "480": {
+        "width": 480,
+        "height": 495
+      },
+      "720": {
+        "width": 720,
+        "height": 743
+      }
+    }
+  },
+  "avatars/exy": {
+    "original": {
+      "width": 2410,
+      "height": 2487
+    },
+    "variants": {
+      "240": {
+        "width": 240,
+        "height": 248
+      },
+      "480": {
+        "width": 480,
+        "height": 495
+      },
+      "720": {
+        "width": 720,
+        "height": 743
+      }
+    }
+  },
+  "avatars/salakhov": {
+    "original": {
+      "width": 2410,
+      "height": 2487
+    },
+    "variants": {
+      "240": {
+        "width": 240,
+        "height": 248
+      },
+      "480": {
+        "width": 480,
+        "height": 495
+      },
+      "720": {
+        "width": 720,
+        "height": 743
+      }
+    }
+  },
+  "avatars/shah": {
+    "original": {
+      "width": 2410,
+      "height": 2487
+    },
+    "variants": {
+      "240": {
+        "width": 240,
+        "height": 248
+      },
+      "480": {
+        "width": 480,
+        "height": 495
+      },
+      "720": {
+        "width": 720,
+        "height": 743
+      }
+    }
+  },
+  "avatars/urtaykin": {
+    "original": {
+      "width": 2410,
+      "height": 2487
+    },
+    "variants": {
+      "240": {
+        "width": 240,
+        "height": 248
+      },
+      "480": {
+        "width": 480,
+        "height": 495
+      },
+      "720": {
+        "width": 720,
+        "height": 743
+      }
+    }
+  },
+  "cases/2030": {
+    "original": {
+      "width": 960,
+      "height": 1102
+    },
+    "variants": {
+      "520": {
+        "width": 520,
+        "height": 597
+      },
+      "960": {
+        "width": 960,
+        "height": 1102
+      }
+    }
+  },
+  "cases/berizaryad": {
+    "original": {
+      "width": 960,
+      "height": 1280
+    },
+    "variants": {
+      "520": {
+        "width": 520,
+        "height": 693
+      },
+      "960": {
+        "width": 960,
+        "height": 1280
+      }
+    }
+  },
+  "cases/dinamo": {
+    "original": {
+      "width": 1280,
+      "height": 854
+    },
+    "variants": {
+      "520": {
+        "width": 520,
+        "height": 347
+      },
+      "960": {
+        "width": 960,
+        "height": 640
+      },
+      "1280": {
+        "width": 1280,
+        "height": 854
+      }
+    }
+  },
+  "cases/IMG_0808": {
+    "original": {
+      "width": 1280,
+      "height": 960
+    },
+    "variants": {
+      "520": {
+        "width": 520,
+        "height": 390
+      },
+      "960": {
+        "width": 960,
+        "height": 720
+      },
+      "1280": {
+        "width": 1280,
+        "height": 960
+      }
+    }
+  },
+  "cases/IMG_0813": {
+    "original": {
+      "width": 1344,
+      "height": 577
+    },
+    "variants": {
+      "520": {
+        "width": 520,
+        "height": 223
+      },
+      "960": {
+        "width": 960,
+        "height": 412
+      },
+      "1344": {
+        "width": 1344,
+        "height": 577
+      }
+    }
+  },
+  "cases/IMG_0814": {
+    "original": {
+      "width": 7852,
+      "height": 7852
+    },
+    "variants": {
+      "520": {
+        "width": 520,
+        "height": 520
+      },
+      "960": {
+        "width": 960,
+        "height": 960
+      },
+      "1440": {
+        "width": 1440,
+        "height": 1440
+      }
+    }
+  },
+  "cases/koncert": {
+    "original": {
+      "width": 1179,
+      "height": 792
+    },
+    "variants": {
+      "520": {
+        "width": 520,
+        "height": 349
+      },
+      "960": {
+        "width": 960,
+        "height": 645
+      },
+      "1179": {
+        "width": 1179,
+        "height": 792
+      }
+    }
+  },
+  "cases/korporat": {
+    "original": {
+      "width": 2560,
+      "height": 1707
+    },
+    "variants": {
+      "520": {
+        "width": 520,
+        "height": 347
+      },
+      "960": {
+        "width": 960,
+        "height": 640
+      },
+      "1440": {
+        "width": 1440,
+        "height": 960
+      }
+    }
+  },
+  "cases/leto": {
+    "original": {
+      "width": 1600,
+      "height": 1200
+    },
+    "variants": {
+      "520": {
+        "width": 520,
+        "height": 390
+      },
+      "960": {
+        "width": 960,
+        "height": 720
+      },
+      "1440": {
+        "width": 1440,
+        "height": 1080
+      }
+    }
+  },
+  "cases/private": {
+    "original": {
+      "width": 1179,
+      "height": 1028
+    },
+    "variants": {
+      "520": {
+        "width": 520,
+        "height": 453
+      },
+      "960": {
+        "width": 960,
+        "height": 837
+      },
+      "1179": {
+        "width": 1179,
+        "height": 1028
+      }
+    }
+  },
+  "cases/public": {
+    "original": {
+      "width": 1025,
+      "height": 621
+    },
+    "variants": {
+      "520": {
+        "width": 520,
+        "height": 315
+      },
+      "960": {
+        "width": 960,
+        "height": 582
+      },
+      "1025": {
+        "width": 1025,
+        "height": 621
+      }
+    }
+  },
+  "cases/sever": {
+    "original": {
+      "width": 1280,
+      "height": 960
+    },
+    "variants": {
+      "520": {
+        "width": 520,
+        "height": 390
+      },
+      "960": {
+        "width": 960,
+        "height": 720
+      },
+      "1280": {
+        "width": 1280,
+        "height": 960
+      }
+    }
+  }
+}
